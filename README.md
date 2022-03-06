@@ -1,3 +1,3 @@
 # algorithm-template
 
-my personal template for competitive programming.
+personal template for competitive programming.

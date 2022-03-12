@@ -7,7 +7,7 @@ typedef unsigned long long ull;
 typedef long long ll;
 
 
-/*O(sqrt(n))*/
+/*  O(sqrt(n)) 
 bool is_prime(ll x)
 {
     if(x < 2) return false;
@@ -15,7 +15,7 @@ bool is_prime(ll x)
         if(x % i == 0) return false;
     return true;
 }
-
+*/
 inline ll qmul(ll a, ll b, ll p) { return (ll)((__int128)a * b % p); }
 
 ll qpow(ll a, ll b, ll p)

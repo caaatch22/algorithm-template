@@ -20,3 +20,5 @@ tmp.c
 
 [Cc][Ff]/
 
+# a local judge plugin files
+.chp   

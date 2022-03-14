@@ -1,4 +1,5 @@
 //poj 1679
+//mst + monotoneQueue
 #include <cstdio>
 #include <cstring>
 #include <algorithm>

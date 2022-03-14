@@ -8,9 +8,9 @@ using namespace std;
 int get_phi(int n)
 {
     int res = n;
-    for (int i = 2; i <= n/ i; i++)
+    for (int i = 2; i <= n / i; i++)
     {
-        if(n % i ==0)
+        if(n % i == 0)
         {
             res = res / i * (i - 1); // res *= (1 - 1/n)
             while(n % i == 0)   n /= i;
@@ -54,5 +54,4 @@ void sel_phi(int n)
 int main()
 {
 
-    return 0;
 }

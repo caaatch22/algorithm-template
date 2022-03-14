@@ -24,15 +24,21 @@ int main()
 {
     cin >> n;
     getprime(n);
+    // for (int i = 1; i <= p; i ++)
+    // {
+    //     int exp = 0, p = prime[i];
+    //     for (int j = p; j <= n; j *= p)
+    //     {
+    //         exp += n / j;
+    //         if((ll)j*p > n) break;
+    //     }
+    //     cout << p << ' ' << exp << '\n';
+    // }
     for (int i = 1; i <= p; i ++)
     {
-        int exp = 0, a = prime[i];
-        for (int j = a; j <= n; j *= a)
-        {
-            exp += n / j;
-            if((ll)j*a > n) break;
-        }
-        cout << a << ' ' << exp << '\n';
-    }
-        return 0;
+        int exp = 0, p = prime[i];
+        for (int j = n; j ; j/= p)    exp += j / p;
+        cout << p << ' ' << exp << '\n';
+    }       
+    return 0;
 }

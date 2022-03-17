@@ -9,6 +9,19 @@ const int N = 1e6 + 10;
 char s[N];
 int nxt[N], n;
 
+/*
+//区间l->r的kmp
+
+    nxt[l] = 0;
+    for (int i = l + 1; i <= r; i ++)
+    {
+        int j = nxt[i - 1];
+        while(j && s[i] != s[l + j])   j = nxt[l + j - 1];
+        if(s[i] == s[j + l])  j++;
+        nxt[i] = j;
+    }
+*/
+
 void get_nxt()
 {
     nxt[1] = 0;

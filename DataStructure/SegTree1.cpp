@@ -1,4 +1,9 @@
 //线段树的单点修改区间查询
+//相关应用（不涉及区间修改的）
+/*
+1. 维护区间上的最大值/最小值
+2. 查询区间最大连续字段和   （维护lmax, rmax, tmax）
+*/
 #include <bits/stdc++.h>
 using namespace std;
 

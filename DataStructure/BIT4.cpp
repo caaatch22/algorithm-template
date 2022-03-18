@@ -1,3 +1,4 @@
+//scoiHH的项链
 //对询问离线+树状数组
 //维护区间上的种类
 #include <bits/stdc++.h>

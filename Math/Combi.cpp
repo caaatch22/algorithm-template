@@ -4,7 +4,7 @@
 using namespace std;
 
 typedef long long ll;
-const int mod = 1e9 + 7;
+const int mod = 1e9 + 7, N = 1e6 + 10;
 //C(a, b) a上b下
 
 /*1. 依照定义   当a, b很小的时候（几十）*/
@@ -28,17 +28,19 @@ void init()
 }
 
 /*3. 预处理fac[], invfac[]*/
-//O(N) 1e6左右 看N大小
+/**
+ * //调用 :
+ * 1ll * fac[b] * invfac[a] % mod * invfac[b - a] % mod;
+ */
+// O(N) 1e6左右 看N大小
 int fac[N], invfac[N];
 void init()
 {
-    fac[0] = invfac[0] = 1;
-    for (int i = 1; i < N; i ++)
-    {
-        fac[i] = 1ll * fac[i - 1] * i % mod;
-        invfac[i] = 1ll * invfac[i - 1] * qpow(i, mod - 2) % mod;
-    }
-    //调用 1ll * fac[a] * invfac[b] % mod * invfac[a - b] % mod
+    fac[0] = 1;
+    for (int i = 1; i < N; i ++)  (ll)fac[i] = fac[i - 1]*i% mod;
+    invfac[N - 1] = qpow(fac[N - 1], mod - 2);
+    for (int i = N - 2; i >= 0; i --)
+        invfac[i] = (ll)invfac[i + 1] * (i + 1) % mod;
 }
 
 /*4. lucas定理 当a, b的值特别大 如1e9以上...1e18等*/

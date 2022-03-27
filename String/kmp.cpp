@@ -1,8 +1,5 @@
 //poj2406
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
-
+#include <bits/stdc++.h>
 using namespace std;
 
 const int N = 1e6 + 10;

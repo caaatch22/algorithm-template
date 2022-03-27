@@ -1,5 +1,4 @@
 // acwing846
-
 #include <bits/stdc++.h>
 #define pb push_back
 using namespace std;

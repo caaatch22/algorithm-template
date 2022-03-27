@@ -1,6 +1,6 @@
 //poj3041
 //O(V*E)
-// classic and great problem
+// classic 
 //view the asteroids as edge, and the weapon rays as vertex
 #include <cstdio>
 #include <cstring>

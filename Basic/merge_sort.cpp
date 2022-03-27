@@ -1,5 +1,4 @@
 //acwing788 reverse pair
-
 #include <bits/stdc++.h>
 using namespace std;
 

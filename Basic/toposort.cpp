@@ -4,7 +4,6 @@
 #define pb push_back
 using namespace std;
 
-
 const int N = 3e4 + 10;
 int n, m;
 vector<int> G[N];

@@ -27,6 +27,7 @@ void init()
             else C[i][j] = (C[i - 1][j] + C[i - 1][j - 1]) % mod;
 }
 
+//最常用
 /*3. 预处理fac[], invfac[]*/
 /**
  * //调用 :

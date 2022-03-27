@@ -4,6 +4,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+const int N = 1e6 + 10;
+vector<pair<int, int>> pfac[N];
+//预处理质因数（当需要经常1~N所有数的质因数时候）
+void init() {
+    for (int i = 2; i < N; i ++) {
+        if(pfac[i].size()) continue;
+        for (int j = i; j < N; j += i) {
+            int t = j, cnt = 0;
+            while(t%i == 0)  t/= i, cnt ++;
+            pfac[j].push_back({i, cnt});
+        }
+    }
+}
+
 void decompose(int n)
 {
     for (int i = 2; i <= n / i; i ++)

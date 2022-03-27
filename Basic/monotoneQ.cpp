@@ -1,24 +1,43 @@
-#include <cstdio>
-#include <iostream>
-#include <algorithm>
-#include <cstring>
+#include<bits/stdc++.h>
 
 using namespace std;
-
 const int N = 1e6 + 10;
-int q[N], a[N], n, k;
+int a[N], q[N],n, k;
 
 int main()
 {
-    scanf("%d %d", &n, &k);
-    for (int i = 1; i <= n; i ++)  scanf("%d", &a[i]);
+    cin >> n >> k;
+    int hh = 0, tt = -1;
+    for(int i = 0; i < n; i++)
+        cin >> a[i];
+    for(int i = 0; i < n; i++)
+    {
+        //判断队头是否已经划出窗口
+        if( hh <= tt && i - k + 1  > q[hh]) hh++;
 
-    int head = 0, tail = 0;
-
-    for (int i = 1; i < k; i ++) {
-        while(head <= tail && a[q[tail]] >= a[i]) tail --;
+        while(hh <= tt && a[q[tt]] >= a[i]) tt -- ;//求区间最小
+        q[ ++ tt ] = i;
+        
+        if(i >= k-1) printf("%d ",a[q[hh]]);
+        
         
     }
+    puts("");
+    
+    hh = 0, tt = -1;
+    
+    for(int i = 0; i<n; i++)
+    {
+        //判断队头是否已经划出窗口
+        if( hh <= tt && i - k + 1  > q[hh]) hh++; 
+        while(hh <= tt && a[q[tt]] <= a[i]) tt -- ;
+        q[ ++ tt ] = i;
+        
+        if(i >= k-1) printf("%d ",a[q[hh]]);
+        
+        
+    }
+    puts("");
 
-        return 0;
+    return 0;
 }

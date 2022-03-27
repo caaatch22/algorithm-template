@@ -1,5 +1,4 @@
 //acwing 849
-
 #include <bits/stdc++.h>
 using namespace std;
 

@@ -7,7 +7,7 @@ bool vis[N];//合数true
 int n, q;
 
 //linear
-inline void get_prime(int n)
+void get_prime(int n)
 {
 	for(int i = 2; i <= n; i ++) {
     	if(!vis[i]) primes[ ++ cnt] = i;

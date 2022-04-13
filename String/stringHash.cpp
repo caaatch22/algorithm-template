@@ -37,3 +37,31 @@ int main()
 
     return 0;
 }
+
+
+#include <bits/stdc++.h>
+using namespace std;
+
+using ull = unsigned long long;
+const int N = 10, base = 131;
+int n, q;
+char s[10010][N], t[N];
+
+namespace strhash {
+//将hash的s字符串设置为全局变量
+const int base = 131;
+ull h[N], p[N];
+
+
+void build(char *str) {
+    int n = strlen(str + 1);
+    p[0] = 1;
+    for (int i = 1; i <= n; i ++) {
+        p[i] = p[i - 1] * base;
+        h[i] = h[i - 1] * base + str[i] - '.' + 13;
+    }
+}
+
+ull gethash(int l, int r) { return h[r] - h[l - 1] * p[r - l + 1]; }
+
+}

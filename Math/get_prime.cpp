@@ -7,8 +7,7 @@ bool vis[N];//合数true
 int n, q;
 
 //linear
-void get_prime(int n)
-{
+void get_prime(int n) {
 	for(int i = 2; i <= n; i ++) {
     	if(!vis[i]) primes[ ++ cnt] = i;
     	for(int j = 1; j <= cnt && i * primes[j] <= n; ++ j) {
@@ -21,7 +20,7 @@ void get_prime(int n)
 //about linear :O(nloglogn)
 bool isprime[N];
 int primes[N];
-inline void getprime(int n){
+inline void getprime(int n) {
     for (int i = 2; i <= n; i++) isprime[i] = 1;
     for (int i = 2; i <= n; i++){
         if(isprime[i]){

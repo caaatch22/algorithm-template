@@ -12,8 +12,7 @@ typedef long long ll;
 const int mod = 1e9 + 7, N = 20;
 ll A[N], n, m;
 
-int qpow(int a, int b)
-{
+int qpow(int a, int b) {
     int res = 1;
     while(b) {
         if(b&1) res = (ll)res*a % mod;

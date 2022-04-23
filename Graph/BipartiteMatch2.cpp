@@ -56,12 +56,7 @@ int main() {
 }
 
 /*dinic解二分图
-#include <iostream>
-#include <cstdio>
-#include <cstring>
-#include <algorithm>
-#include <vector>
-#include <queue>
+#include <bits/stdc++.h>
 
 #define pb push_back
 using namespace std;

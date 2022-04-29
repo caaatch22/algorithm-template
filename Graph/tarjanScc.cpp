@@ -10,15 +10,12 @@ int w[N], dfn[N], low[N], id[N];
 int dist[N], ind[N], W[N];
 bool ins[N];
 
-void tarjan(int u)
-{
+void tarjan(int u) {
     low[u] = dfn[u] = ++timestamp;
     s.push(u);  ins[u] = true;
 
-    for(int v:G[u])
-    {
-        if(!dfn[v])
-        {
+    for(int v:G[u]) {
+        if(!dfn[v]) {
             tarjan(v);
             low[u] = min(low[v], low[u]);
         }
@@ -26,11 +23,9 @@ void tarjan(int u)
             low[u] = min(low[u], dfn[v]);
     }
 
-    if(low[u] == dfn[u])
-    {
+    if(low[u] == dfn[u]) {
         int y;  ++scc_cnt;
-        do
-        {
+        do {
             y = s.top(); s.pop(); 
             ins[y] = false;
             id[y] = scc_cnt;
@@ -39,21 +34,19 @@ void tarjan(int u)
     }
 }
 
-int sol()
-{
+int sol() {
+
     queue<int> q;
     for (int i = 1; i <= scc_cnt; i++)
-        if(!ind[i])
-        {
+        if(!ind[i]) {
             q.push(i);
             dist[i] = W[i];
         }
-    while(q.size())
-    {
+
+    while(q.size()) {
         //cout << "cnt = " << ++cnt << endl;
         int u = q.front();  q.pop();
-        for (int v:G2[u])
-        {
+        for (int v:G2[u]) {
             //当有重边时， dist[v]被更新的值始终不变， 即dist[v] = dist[u] + W[v]; 所以不会影响
             dist[v] = max(dist[v], dist[u] + W[v]);
             if(--ind[v] == 0)
@@ -69,14 +62,13 @@ int sol()
 }
 
 
-int main()
-{
+int main() {
+    
     ios::sync_with_stdio(false), cin.tie(0);
     cin >> n >> m;
     for (int i = 1; i <= n; i ++)    cin >> w[i];
     
-    while(m--)
-    {
+    while(m--) {
         int u, v;
         cin >> u >> v;
         G[u].pb(v);

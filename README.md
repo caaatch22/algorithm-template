@@ -1,6 +1,8 @@
 # algorithm-template
 
 
+> Competitive Programming template
+
 
 ## basic algorithm
 

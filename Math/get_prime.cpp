@@ -1,7 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-const int N = 1e8 + 10;
+using ll = long long;
+const int N = 1e7 + 10;
 int primes[N], cnt;
 bool vis[N];//合数true
 int n, q;
@@ -19,7 +20,6 @@ void get_prime(int n) {
 
 //about linear :O(nloglogn)
 bool isprime[N];
-int primes[N];
 inline void getprime(int n) {
     for (int i = 2; i <= n; i++) isprime[i] = 1;
     for (int i = 2; i <= n; i++){

@@ -25,8 +25,7 @@ const int N = 1e5 + 10;
 int n, m, mod;
 int a[N];
 
-struct node
-{
+struct node {
     int l, r;
     int sum, add, mul;
 } t[4 * N];

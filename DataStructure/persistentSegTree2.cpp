@@ -1,4 +1,5 @@
 // http://oj.daimayuan.top/course/10/problem/464
+// 在给定 N 长的数组 {A} 中进行 Q 次询问 [Li,Ri] 区间中不大于 Hi 的元素个数。
 //主席树的在线做法
 #include <bits/stdc++.h>
 using namespace std;

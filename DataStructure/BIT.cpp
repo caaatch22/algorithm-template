@@ -7,7 +7,7 @@ int lowbit(int x) {return x & -x;}
 int query(int x)
 {
     int res = 0;
-    fro(int i = x; i; i -= lowbit(i)) res += tr[i];
+    for (int i = x; i; i -= lowbit(i)) res += tr[i];
     return res;
 }
 

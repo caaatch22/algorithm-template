@@ -30,4 +30,5 @@ tmp.c
 catch22-algorithm-template
 *synctex.gz
 *.toc
+*.log
 

@@ -40,13 +40,11 @@ int main()
 using namespace std;
 typedef long long ll;
 const int N = 1e5 + 10;
-
 int a[N], b[N];
 ll t1[N], t2[N]; //维护b[i], b[i] * i的前缀和
 int n, m;
 
-void add(ll tr[], int x, ll c)
-{
+void add(ll tr[], int x, ll c) {
     for (int i = x; i <= n; i += lowbit(i))
         tr[i] += c;
 }

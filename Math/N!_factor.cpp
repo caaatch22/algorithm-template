@@ -3,7 +3,6 @@
 using namespace std;
 
 //1筛出[1, 1e6]中的质数
-
 const int N = 1e6 + 10;
 typedef long long ll;
 int p, n, vis[N], prime[N];
@@ -20,8 +19,7 @@ inline void getprime(int n){
     }
 }
 
-int main()
-{
+int main() {
     cin >> n;
     getprime(n);
     // for (int i = 1; i <= p; i ++)

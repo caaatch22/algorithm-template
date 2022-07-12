@@ -1,16 +1,13 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 const int N = 110;
 const double eps = 1e-6;
 int n;
 double a[N][N];
 
-int gauss()//高斯消元 O(n^3)
-{
+int gauss() {
     int c, r;
-    for(c = 0, r = 0; c < n; c ++)
-    {
+    for(c = 0, r = 0; c < n; c ++) {
         int t = r;
         for(int i = r; i < n; i ++)//找到首元素最大
             if(fabs(a[i][c]) > fabs(a[t][c]))
@@ -26,8 +23,7 @@ int gauss()//高斯消元 O(n^3)
                     a[i][j] -= a[r][j] * a[i][c];
         r ++;
     }
-    if(r < n)
-    {
+    if(r < n) {
         for(int i = r; i < n; i ++)
             if(fabs(a[i][n]) > eps)
                 return 2;
@@ -41,8 +37,7 @@ int gauss()//高斯消元 O(n^3)
     return 0;//有唯一解
 }
 
-int main()
-{
+int main() {
     cin >> n ;
     for(int i = 0; i < n; i ++)
         for(int j = 0; j < n + 1; j ++) 

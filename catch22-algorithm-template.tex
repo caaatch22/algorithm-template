@@ -1,0 +1,200 @@
+% !TeX program = xelatex 
+
+%文档类型
+\documentclass[a4paper]{ctexart}
+
+%引用包裹
+\usepackage{bm}
+\usepackage{cmap}
+\usepackage{cite}
+\usepackage{color}
+\usepackage{float}
+\usepackage{xeCJK}
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{hyperref}
+\usepackage{enumerate}
+\usepackage{indentfirst}
+\usepackage[cache=false]{minted}
+\usepackage{fontspec}
+\usepackage{pdfpages}
+\usepackage{fancyhdr}
+\usepackage[table]{xcolor}
+\usepackage{booktabs}
+\usepackage{harpoon}
+%代码高亮
+\geometry{margin=1in}
+\setmonofont{Consolas}
+%字体设置
+\setmainfont{Consolas}
+%\setCJKmonofont{SimSun}
+%\setCJKmainfont[BoldFont={SimSun}]{SimSun}
+
+\hypersetup{
+	colorlinks=true,
+	linkcolor=black
+}
+
+\newcommand{\cppcode}[1]{
+	\inputminted[mathescape,
+	tabsize=2,
+	linenos,
+	%frame=single,
+	framesep=2mm,
+	breakaftergroup=true,
+	breakautoindent=true,
+	breakbytoken=true,
+	breaklines=true,
+	fontsize=\small
+	]{cpp}{#1}
+}
+
+%\newcommand{\javacode}[1]{
+%	\inputminted[mathescape,
+%	tabsize=2,
+%	linenos,
+%	%frame=single,
+%	framesep=2mm,
+%	breakaftergroup=true,
+%	breakbytoken=true,
+%	breaklines=true,
+%	fontsize=\small
+%	]{java}{#1}
+%}
+
+%\newcommand{\vimcode}[1]{
+%	\inputminted[mathescape,
+%	tabsize=2,
+%	linenos,
+%	%frame=single,
+%	framesep=2mm,
+%	breakaftergroup=true,
+%	breakautoindent=true,
+%	breakbytoken=true,
+%	breaklines=true,
+%	fontsize=\small
+%	]{vim}{#1}
+%}
+
+\begin{document}
+
+\title{icpc算法模板}
+\author{Catch-22}
+\date{\today}
+
+\maketitle
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{数学}
+
+
+\subsection{求逆元}
+注意考虑$x$是$mod$倍数的情况
+\cppcode{math/inverse.cpp}
+
+\subsection{扩展欧几里德算法}
+bezout定理：设$a, b$为正整数，则关于$x, y$的方程$ax + by = c$有整数解当且仅当$c$是$gcd(a, b)$的倍数。 \\
+返回结果：$ax+by=gcd(a,b)$ 的一组解 (x, y)  \\
+\indent 时间复杂度：$\mathcal{O}(nlogn)$
+\cppcode{math/exgcd.cpp}
+
+\subsection{筛法}
+\cppcode{math/getprime.cpp}
+\cppcode{math/phi.cpp}
+
+\subsection{组合数}
+\begin{enumerate}
+	\item $C_{n}^{m} = C_{n}^{n-m}$
+	\item $C_{n}^{m} = C_{n-1}^{m} + C_{n-1}^{m-1}$
+	\item $C_{n}^{0} + C_{n}^{1} + \cdots +C_{n}^{n} = 2^n$
+	\item $ lucas:\ C_{n}^{m} \equiv C_{n\ mod\ p}^{m\ mod\ p} * C_{n/p}^{m/p} $
+\end{enumerate}
+\cppcode{math/combination.cpp}
+
+
+\subsection{容斥原理}
+$S_i$为有限集，$|S|$为$S$的大小（元素个数），则：
+$$
+| \bigcup\limits_{i=1}^{n} S_i | =\sum_{i=1}^{n} |S_i| - 
+\sum_{1 \leq i < j \leq n}|S_i \cap S_j | 
++ \sum_{1 \leq i < j < k \leq n} |S_i \cap S_j \cap S_k | + \cdots 
++ (-1)^{n+1} | S_1 \cap \cdots \cap S_n | 
+$$ 
+
+\subsection{数论分块}
+考虑和式：
+$\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \rfloor$的值成一个块状分布，故可以一块一块运算。我们先求出$f(i)$的前缀和，每次以$[l, r] = [l, \lfloor \frac{n}{\lfloor \frac{n}{i} \rfloor} \rfloor]$为一块分块求出贡献累加到结果中。(常配合莫反使用) \\
+常见转换：
+\begin{itemize}
+	\item $\lceil \frac{a}{b} \rceil = \lfloor \frac{a-1}{b} + 1 \rfloor$
+	\item $a\ mod\ b = a - \lfloor \frac{a}{b} \rfloor * b $ 
+\end{itemize}
+\cppcode{math/block-on-number.cpp}
+
+\subsection{M\"{o}bius反演}
+
+
+\subsection{高斯消元}
+\cppcode{math/Gauss.cpp}
+
+\subsection{Miller\ Rabin\ 素数测试}
+\cppcode{math/mr-test.cpp}
+
+
+\section{数据结构}
+
+
+\subsection{(带权)并查集}
+\cppcode{data-structure/disjointSet.cpp}
+
+\subsection{Sparse Table}
+时间复杂度$\mathcal{O}(1)$，空间复杂度$\mathcal{O}(nlogn)$ \\
+静态区间查询可重复贡献信息，如“区间最值”、“区间按位和”、“区间按位或”、“区间 GCD”
+\cppcode{data-structure/sparse-table.cpp}
+
+\subsection{树状数组}
+
+\subsection{线段树}
+
+\subsection{可持久化线段树}
+
+\subsection{左偏树}
+支持操作(以维护最小值为例)：
+\begin{enumerate}
+	\item 找到最小值 $\mathcal{O}(1)$
+ 	\item 删除最小值 $\mathcal{O}(logn)$
+	\item 插入一个值 $\mathcal{O}(logn)$
+	\item 合并两个堆 $\mathcal{O}(logn)$
+\end{enumerate}
+\cppcode{data-structure/leftish-tree.cpp}
+
+\section{图论}
+\subsection{lca}
+\cppcode{graph/LCA.cpp}
+
+\section{动态规划}
+\subsection{换根dp}
+换根dp一般时间复杂度为$\mathcal{O}(n)$，需要对树处理得到大规模答案，如对每个点得到一个答案。
+\cppcode{DP/tree-change-root.cpp}
+
+\section{字符串}
+\subsection{kmp}
+
+\subsection{title}
+
+\section{其他}
+\subsection{glibc内置函数}
+\cppcode{others/builtin-functions.cpp}
+
+\subsection{\_\_int128读写}
+\cppcode{others/int128-read-put.cpp}
+
+\end{document}

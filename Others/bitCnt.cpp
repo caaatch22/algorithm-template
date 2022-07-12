@@ -3,19 +3,14 @@ using namespace std;
 
 const int N = 1e5 + 10;
 int n, a[N];
+inline int lowbit(int x) { return x & -x; }
 
-#define lowbit(x) (x)&(-x)
-
-int main()
-{
-    
+int main() {
     cin >> n;
-    while(n -- )
-    {
+    while(n -- ) {
         int t, ans = 0;
         cin >> t;
-        while(t)
-        {
+        while(t) {
             t -= lowbit(t);
             ans++;
         }
@@ -27,7 +22,5 @@ int main()
     //     cin >> t;
     //     cout << __builtin_popcount(t) << ' ';
     // }
-    
-    
     return 0;
 }

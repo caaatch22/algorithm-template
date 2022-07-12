@@ -9,12 +9,10 @@ int n, sz[N];
 bool vis[N];
 int res = 0x3f3f3f3f;
 
-void dfs(int u)
-{
+void dfs(int u) {
     vis[u] = true; sz[u] = 1;
     int max_part = 0;
-    for(auto v : G[u])
-    {
+    for(auto v : G[u]) {
         if(vis[v]) continue;
         dfs(v);
         sz[u] += sz[v];
@@ -25,11 +23,9 @@ void dfs(int u)
 }
 
 
-int main()
-{
+int main() {
     scanf("%d", &n);
-    for(int i = 1; i < n; i ++)
-    {
+    for(int i = 1; i < n; i ++) {
         int u, v;  scanf("%d %d", &u, &v);
         G[u].pb(v), G[v].pb(u);
     }

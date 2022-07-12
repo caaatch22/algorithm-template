@@ -1,12 +1,10 @@
 #include<bits/stdc++.h>
 using namespace std;
-
 using ll = long long;
 const int N = 1e7 + 10;
 int primes[N], cnt;
-bool vis[N];//合数true
+bool vis[N]; //合数true
 int n, q;
-
 //linear
 void get_prime(int n) {
 	for(int i = 2; i <= n; i ++) {
@@ -22,8 +20,8 @@ void get_prime(int n) {
 bool isprime[N];
 inline void getprime(int n) {
     for (int i = 2; i <= n; i++) isprime[i] = 1;
-    for (int i = 2; i <= n; i++){
-        if(isprime[i]){
+    for (int i = 2; i <= n; i++) {
+        if(isprime[i]) {
             primes[++cnt] = i;
             if((ll)i*i<=n)
             for (int j = i * i; j <= n; j+=i){
@@ -31,18 +29,4 @@ inline void getprime(int n) {
             }
         }
     }
-}
-
-
-int main()
-{
-    ios::sync_with_stdio(false), cin.tie(0);
-    cin >> n >> q;
-    get_prime(n);
-    while(q--){
-        int k;
-        cin >> k;
-        cout << primes[k] << endl;
-    }
-    return 0;
 }

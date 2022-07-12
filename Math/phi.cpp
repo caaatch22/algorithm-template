@@ -17,7 +17,7 @@ int get_phi(int n) {
     return res;
 }
 
-typedef long long ll;
+using ll = long long;
 const int N = 1e6 + 10;
 
 int phi[N], prime[N];
@@ -41,8 +41,4 @@ void sel_phi(int n) {
                 phi[prime[j] * i] = phi[i] * (prime[j] - 1);
         }
     }
-}
-
-int main()
-{
 }

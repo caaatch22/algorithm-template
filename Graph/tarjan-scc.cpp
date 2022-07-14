@@ -5,13 +5,13 @@ using namespace std;
 const int N = 1e4 + 10;
 vector<int> G[N], G2[N];
 stack<int> s;
-int n, m, timestamp, scc_cnt;
+int n, m, tim, scc_cnt;
 int w[N], dfn[N], low[N], id[N];
 int dist[N], ind[N], W[N];
 bool ins[N];
 
 void tarjan(int u) {
-    low[u] = dfn[u] = ++timestamp;
+    low[u] = dfn[u] = ++tim;
     s.push(u);  ins[u] = true;
 
     for(int v:G[u]) {
@@ -52,7 +52,6 @@ int sol() {
             if(--ind[v] == 0)
                 q.push(v);
         }
-        
     }
 
     int ans = 0;
@@ -63,45 +62,38 @@ int sol() {
 
 
 int main() {
-    
     ios::sync_with_stdio(false), cin.tie(0);
     cin >> n >> m;
     for (int i = 1; i <= n; i ++)    cin >> w[i];
-    
     while(m--) {
         int u, v;
         cin >> u >> v;
         G[u].pb(v);
     }
-
     for (int i = 1; i <= n; i ++)
         if(!dfn[i])
             tarjan(i);
-
-    for (int u = 1; u <= n; ++u)//缩点后的新图
-    {
-        for(int v : G[u])
-        {
-            if(id[v] != id[u])
-            {
+    //缩点
+    for (int u = 1; u <= n; ++u) {
+        for(int v : G[u]) {
+            if(id[v] != id[u]) {
                 G2[id[u]].pb(id[v]);
                 ind[id[v]]++;
                 //printf("ind[%d] = %d\n",id[v], ind[id[v]]);
             }
         }
     }
-/*
-    for (int i = 1; i <= scc_cnt; i++)
-        printf("ind[%d] = %d\n",i, ind[i]);
-    for (int i = 1; i <= scc_cnt; i++)
-    {
+    // debug
+    // for (int i = 1; i <= scc_cnt; i++)
+    //     printf("ind[%d] = %d\n",i, ind[i]);
+    // for (int i = 1; i <= scc_cnt; i++)
+    // {
         
-        printf("%d->", i);
-        for (int v:G2[i])
-            printf("%d ", v);
-        puts("");
-    }
-*/
+    //     printf("%d->", i);
+    //     for (int v:G2[i])
+    //         printf("%d ", v);
+    //     puts("");
+    // }
     printf("%d\n", sol());
     return 0;
 }

@@ -1,16 +1,14 @@
 //acwing 849
 #include <bits/stdc++.h>
 using namespace std;
-
 const int N = 510, inf = 0x3f3f3f3f;
 int dis[N], G[N][N], n, m;
 bool vis[N];
 
-void dij()
-{
-    memset(dis, 0x3f, sizeof dis); dis[1] = 0;
-    for (int j = 0; j < n; j ++)
-    {
+void dij() {
+    memset(dis, 0x3f, sizeof dis); 
+    dis[1] = 0;
+    for (int j = 0; j < n; j ++) {
         int minv = inf, pos = -1;
         for(int i = 1; i <= n; i ++)
             if (!vis[i] && minv > dis[i])
@@ -24,12 +22,11 @@ void dij()
     }
 }
 
-int main()
-{
+int main() {
+    cin >> n >> m;
     scanf("%d %d", &n, &m);
     memset(G, 0x3f, sizeof(G));
-    while(m --)
-    {
+    while(m --) {
         int u, v, w; scanf("%d %d %d", &u, &v, &w);
         G[u][v] = min(G[u][v], w);
     }

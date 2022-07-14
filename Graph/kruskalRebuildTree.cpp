@@ -25,18 +25,14 @@ int find(int x) { return x == p[x] ? x : p[x] = find(p[x]); }
 
 int dep[N], fa[N][21];
 
-void bfs(int s)
-{
+void bfs(int s) {
     dep[0] = 0, dep[s] = 1;
     queue<int> q;
     q.push(s);
-    while(q.size())
-    {
+    while(q.size()) {
         int u = q.front(); q.pop();
-        for(int v:G[u])
-        {
-            if(dep[v] > dep[u] + 1)
-            {
+        for(int v:G[u]) {
+            if(dep[v] > dep[u] + 1) {
                 dep[v] = dep[u] + 1;
                 q.push(v);
                 fa[v][0] = u;
@@ -47,8 +43,7 @@ void bfs(int s)
     }
 }
 
-int lca(int a, int b)
-{
+int lca(int a, int b) {
     if(dep[a] < dep[b]) swap(a, b);
     for (int k = 20; k >= 0; k --)
         if(dep[fa[a][k]] >= dep[b])
@@ -60,16 +55,13 @@ int lca(int a, int b)
     return fa[a][0];
 }
 
-void build()
-{
+void build() {
     idx = n;
     int cnt = 0;
-    for (int i = 1; i <= m; i ++)
-    {
+    for (int i = 1; i <= m; i ++) {
         int u = edges[i].u, v = edges[i].v, w = edges[i].w;
         int fu = find(u), fv = find(v);
-        if(fu != fv)
-        {
+        if(fu != fv) {
             val[++idx] = w;
             G[idx].pb(fu), G[idx].pb(fv);
             G[fu].pb(idx), G[fv].pb(idx);
@@ -80,11 +72,9 @@ void build()
     }
 }
 
-int main()
-{
+int main() {
     scanf("%d %d %d", &n, &m, &k);
-    for (int i = 1; i <= m; i ++)
-    {
+    for (int i = 1; i <= m; i ++) {
         int u, v, w;  scanf("%d %d %d", &u, &v, &w);
         edges[i] = {u, v, w};
     }
@@ -96,8 +86,7 @@ int main()
     memset(dep, 0x3f, sizeof dep);
     bfs(idx);  //bfs的根节点一定要是重构树的最高点
 
-    while(k -- )
-    {
+    while(k -- ) {
         int s, t;
         scanf("%d %d", &s, &t);
         if(find(s) != find(t))    puts("-1");

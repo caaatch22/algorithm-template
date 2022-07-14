@@ -128,6 +128,7 @@ $$
 + \sum_{1 \leq i < j < k \leq n} |S_i \cap S_j \cap S_k | + \cdots 
 + (-1)^{n+1} | S_1 \cap \cdots \cap S_n | 
 $$ 
+\cppcode{math/inclu-exclu.cpp}
 
 \subsection{数论分块}
 考虑和式：
@@ -160,11 +161,22 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 静态区间查询可重复贡献信息，如“区间最值”、“区间按位和”、“区间按位或”、“区间 GCD”
 \cppcode{data-structure/sparse-table.cpp}
 
+\subsection{01Trie}
+\cppcode{data-structure/01Trie.cpp}
+
 \subsection{树状数组}
 
 \subsection{线段树}
 
 \subsection{可持久化线段树}
+
+\subsection{线段树合并}
+
+\subsection{树链剖分}
+
+\subsection{莫队}
+
+
 
 \subsection{左偏树}
 支持操作(以维护最小值为例)：
@@ -177,18 +189,61 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 \cppcode{data-structure/leftish-tree.cpp}
 
 \section{图论}
+\subsection{spfa}
+\cppcode{graph/spfa.cpp}
+
+\subsection{dijkstra}
+稀疏图dijkstra：
+\cppcode{graph/dij1.cpp}
+稠密图dijkstra：
+\cppcode{graph/dij2.cpp}
+
+\subsection{最小生成树}
+\cppcode{graph/MST.cpp}
+对于完全图的$MST$问题，一般考虑使用$Boruvka$算法，我们要在$nlogn$或$nlog^2n$时间内求出每个连通块最小的连接的边，而这个边权一般可通过点权以一定方式求出。
+\cppcode{graph/boruvka.cpp}
+
+\subsection{kruskal重构树}
+\cppcode{graph/kruskalRebuildTree.cpp}
+
+\subsection{强连通分量缩点}
+时间复杂度$O(m+n)$，反向枚举scc\_cnt即是新图拓扑序。
+\cppcode{graph/tarjan-scc.cpp}
+
 \subsection{lca}
 \cppcode{graph/LCA.cpp}
 
+\subsection{基环树}
+基环树的性质：点数等于边数；度数是点数两倍。一般题目中出现“从一个点到另一个点建一条边”，“N个点通过恰好N条双向道路连接起来，不存在任何两条道路连接了相同的两个点”等类似信息可以判定该图是基环树森林。以下是求基环树(森林)直径(和)代码
+\cppcode{graph/pseudotree-diameter.cpp}
+
+
 \section{动态规划}
+
+\subsection{数位dp}
+
+
+
 \subsection{换根dp}
 换根dp一般时间复杂度为$\mathcal{O}(n)$，需要对树处理得到大规模答案，如对每个点得到一个答案。
 \cppcode{DP/tree-change-root.cpp}
 
 \section{字符串}
-\subsection{kmp}
+\subsection{KMP}
+\cppcode{string/kmp.cpp}
+\subsection{字符串Hash}
 
-\subsection{title}
+\subsection{Trie}
+\cppcode{string/Trie.cpp}
+
+\subsection{AC自动机}
+\cppcode{string/AC.cpp}
+
+\subsection{SA}
+
+\subsection{Manacher}
+
+
 
 \section{其他}
 \subsection{glibc内置函数}
@@ -196,5 +251,11 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 
 \subsection{\_\_int128读写}
 \cppcode{others/int128-read-put.cpp}
+
+\subsection{单调栈}
+\cppcode{others/monotoneS.cpp}
+
+\subsection{单调队列}
+\cppcode{others/monotoneQ.cpp}
 
 \end{document}

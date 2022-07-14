@@ -14,7 +14,6 @@
 - [ ] 单调队列
 - [x] 尺取法
 - [ ] 归并排序，快速排序，第k小
-- [x] Sparse table
 - [x] 树的中心
 - [x] 拓扑排序
 
@@ -38,6 +37,8 @@
 - [ ] 线性基
 
 ## date strcture
+- [x] 并查集
+- [x] Sparse table
 - [x] Trie, 01Trie
 - [x] 树状数组
 - [x] 线段树，扫描线

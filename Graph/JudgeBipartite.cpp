@@ -8,11 +8,9 @@ const int N = 1e5 + 10;
 vector<int> G[N];
 int n, m, clr[N];
 
-bool dfs(int u, int c)
-{
+bool dfs(int u, int c) {
     clr[u] = c;
-    for(auto v:G[u])
-    {
+    for(auto v:G[u]) {
         if(!clr[v])
             if(!dfs(v, 3-c)) return false;
         if(clr[v] == c) return false;
@@ -20,19 +18,14 @@ bool dfs(int u, int c)
     return true;
 }
 
-
-int main()
-{
+int main() {
     cin >> n >> m;
-    while(m -- )
-    {
+    while(m -- ) {
         int u, v; cin >> u >> v;
         G[u].pb(v), G[v].pb(u);
     }
-    
     bool flg = true;
-    for(int i = 1; i <= n; i ++)
-    {
+    for(int i = 1; i <= n; i ++) {
         if(!clr[i])
             if(!dfs(i, 1)) {flg = false; break;}
     }

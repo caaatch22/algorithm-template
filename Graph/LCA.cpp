@@ -5,7 +5,6 @@ lca用处
 1. 树上两点之间的距离 （多维护一个dist数组， dis[u] + dis[v] - 2 * dis[lca(u, v)]）
 2. 树上两条路径是否相交 （如果两条路径相交，那么一定有一条路径的LCA在另一条路径上）
 */
-
 //acwing1171 树上距离
 #include <bits/stdc++.h>
 #define pb push_back
@@ -57,10 +56,8 @@ int main() {
     for(int i = 1; i < n ; i ++) {
         int u, v, w;  cin >> u >> v >> w;
         G[u].pb({v, w}), G[v].pb({u, w});
-    }
-    
+    }    
     bfs(1);
-
     while(m -- ) {
         int u, v; cin >> u >> v;
         int anc = lca(u, v);

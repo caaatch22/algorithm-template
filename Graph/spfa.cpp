@@ -1,4 +1,3 @@
-// acwing851
 #include <bits/stdc++.h>
 #define pb push_back
 using namespace std;
@@ -9,22 +8,17 @@ vector<node> G[N];
 int dis[N], n, m;
 bool inq[N];
 
-void spfa()
-{
+void spfa() {
     memset(dis, 0x3f, sizeof dis);
     dis[1] = 0;
     inq[1] = 1;
     queue<int> q;
     q.push(1);
-    while(q.size())
-    {
+    while(q.size()) {
         int u = q.front(); q.pop();
         inq[u] = 0;
-        for(auto nxt:G[u])
-        {
-            int w = nxt.w, v = nxt.v;
-            if(dis[v] > w + dis[u])
-            {
+        for(auto [v, w]:G[u]) {
+            if(dis[v] > w + dis[u]) {
                 dis[v] = dis[u] + w;
                 if(!inq[v])
                     q.push(v), inq[v] = true;
@@ -33,11 +27,9 @@ void spfa()
     }
 }
 
-int main()
-{
+int main() {
     cin >> n >> m;
-    while(m -- )
-    {
+    while(m -- ) {
         int u, v, w;
         cin >> u >> v >> w;
         G[u].pb({v, w});

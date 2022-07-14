@@ -11,44 +11,36 @@ ll dist[N];
 int n, m, cnt[N];
 bool inq[N];
 
-bool spfa()
-{
+bool spfa() {
     stack<int> s;
     memset(dist, -0x3f, sizeof(dist));
     dist[0] = 0;
     s.push(0);
     inq[0] = true;
     
-    while(s.size())
-    {
+    while(s.size()) {
         int u = s.top(); s.pop();
         inq[u] = false;
         
-        for(auto nxt:G[u])
-        {
+        for(auto nxt:G[u]) {
             int v = nxt.v, w = nxt.w;
-            if(dist[v] < dist[u] + w)
-            {
+            if(dist[v] < dist[u] + w) {
                 dist[v] = dist[u] + w;
                 cnt[v] = cnt[u] + 1;
                 if(cnt[v] >= n + 1)  return false;
-                if(!inq[v])
-                {
+                if(!inq[v]) {
                     s.push(v);
                     inq[v] = true;
                 }
             }
         }
     }
-    
     return true;
 }
 
-int main()
-{
+int main() {
     scanf("%d%d", &n, &m);
-    while (m -- )
-    {
+    while (m -- ) {
         int x, u, v;
         scanf("%d%d%d", &x, &u, &v);
         if(x == 1) G[u].pb({v, 0}),G[v].pb({u, 0});
@@ -61,12 +53,10 @@ int main()
     for(int i = 1; i <= n; i++) G[0].pb({i, 1});
     
     if(!spfa()) puts("-1");
-    else
-    {
+    else {
         ll res = 0;
         for(int i = 1; i <= n; i++) res += dist[i];
         printf("%lld\n", res);
-    }
-    
+    }   
     return 0;
 }

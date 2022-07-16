@@ -7,36 +7,30 @@
 //询问区间总共有多少属性
 //luogu2184  差分思想
 #include <bits/stdc++.h>
-
 using namespace std;
-
 const int N = 1e5 + 10;
 int tr1[N], tr2[N], n, m;
 
 int lowbit(int x) { return x & -x; }
 
-void add(int tr[], int x, int k)
-{
-    for(int i = x; i <= n; i+= lowbit(i))   tr[i] += k;
+void add(int tr[], int x, int k) {
+    for(int i = x; i <= n; i+= lowbit(i))   
+        tr[i] += k;
 }
 
-int query(int tr[], int x)
-{
+int query(int tr[], int x) {
     int res = 0;
     for (int i = x; i; i -= lowbit(i))
         res += tr[i];
     return res;
 }
 
-int main()
-{
+int main() {
     scanf("%d%d", &n, &m);
-    while(m --)
-    {
+    while(m --) {
         int op, l, r;
         scanf("%d%d%d", &op, &l, &r);
-        if(op == 1)
-        {
+        if(op == 1) {
             add(tr1, l, 1);
             add(tr2, r, 1);
         }

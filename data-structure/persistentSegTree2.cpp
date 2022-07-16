@@ -1,16 +1,15 @@
 // http://oj.daimayuan.top/course/10/problem/464
 // 在给定 N 长的数组 {A} 中进行 Q 次询问 [Li,Ri] 区间中不大于 Hi 的元素个数。
-//主席树的在线做法
+//主席树的在线做法 还有树状数组的对询问离线做法
 #include <bits/stdc++.h>
 using namespace std;
-
 const int N = 1e5 + 10;
 int n, q, L[N], R[N], idx, H[N], rt[N], a[N];
 vector<int> alls;
 
 struct node {
     int l, r, cnt;
-} t[N*75];
+} t[N * 75];
 
 int insert(int now, int l, int r, int x) {
     int p = ++idx;
@@ -35,7 +34,6 @@ int query(int version, int l, int r, int h) {
     if(h > mid) res += query(t[version].r, mid + 1, r, h);
     return res;
 }
-
 
 int build(int l, int r) {
     int p = ++ idx;

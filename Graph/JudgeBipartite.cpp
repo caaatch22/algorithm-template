@@ -1,5 +1,3 @@
-//acwing860 JudgeIfBiGraph
-
 #include <bits/stdc++.h>
 #define pb push_back
 using namespace std;
@@ -7,7 +5,6 @@ using namespace std;
 const int N = 1e5 + 10;
 vector<int> G[N];
 int n, m, clr[N];
-
 bool dfs(int u, int c) {
     clr[u] = c;
     for(auto v:G[u]) {

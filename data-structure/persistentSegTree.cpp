@@ -1,7 +1,6 @@
 //luogu 3824 kth-number
 #include <bits/stdc++.h>
 using namespace std;
-
 const int N = 2e5 + 10, M = (N << 2) + 17 * N;
 
 struct node {
@@ -11,7 +10,6 @@ struct node {
 int idx, a[N];
 vector<int> num;
 int find(int x) { return lower_bound(num.begin(), num.end(), x) - num.begin(); }
-
 
 int insert(int now, int l, int r, int x) {
     int p = ++ idx;
@@ -42,14 +40,11 @@ int query(int x, int y, int l, int r, int k) {
     int mid = l + r >> 1;
     if(k <= cnt) return query(t[x].l, t[y].l, l, mid, k);
     else return query(t[x].r, t[y].r, mid + 1, r, k - cnt);
-
 }
-
 
 int n, m, root[N];
 
-int main()
-{
+int main() {
     scanf("%d%d", &n, &m);
     for (int i = 1; i <= n; i ++ ) {
         scanf("%d", &a[i]);
@@ -63,9 +58,7 @@ int main()
 
     for (int i = 1; i <= n; i ++ )
         root[i] = insert(root[i - 1], 0, num.size() - 1, find(a[i]));
-
-    while (m -- )
-    {
+    while (m -- ) {
         int l, r, k;
         scanf("%d%d%d", &l, &r, &k);
         printf("%d\n", num[query(root[l - 1], root[r], 0, num.size() - 1, k)]);

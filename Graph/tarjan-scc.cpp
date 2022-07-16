@@ -13,7 +13,6 @@ bool ins[N];
 void tarjan(int u) {
     low[u] = dfn[u] = ++tim;
     s.push(u);  ins[u] = true;
-
     for(int v:G[u]) {
         if(!dfn[v]) {
             tarjan(v);
@@ -22,7 +21,6 @@ void tarjan(int u) {
         else if(ins[v])
             low[u] = min(low[u], dfn[v]);
     }
-
     if(low[u] == dfn[u]) {
         int y;  ++scc_cnt;
         do {
@@ -35,7 +33,6 @@ void tarjan(int u) {
 }
 
 int sol() {
-
     queue<int> q;
     for (int i = 1; i <= scc_cnt; i++)
         if(!ind[i]) {

@@ -51,7 +51,6 @@ int main() {
         G[u].pb({v, cap, G[v].size()});
         G[v].pb({u, 0, G[u].size() - 1});
     }
-
     printf("%lld\n", dinic());
     return 0;
 }

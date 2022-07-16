@@ -2,7 +2,6 @@
 #include <bits/stdc++.h>
 #define pb push_back
 using namespace std;
-
 const int N = 1e5 + 10;
 int fa[N][19], dep[N], n, m;
 vector<int> G[N];
@@ -18,7 +17,6 @@ P& max(P& x, P& y) {
     else if(x.first == y.first) return x.second < y.second ? x : y;
     else return y;
 }
-
 
 int insert(int now, int l, int r, int x, int val) {
     //if(!p) p = ++idx;
@@ -37,8 +35,7 @@ int insert(int now, int l, int r, int x, int val) {
 }
 
 int merge(int p, int q, int l, int r) {
-    if(!p) return q;
-    if(!q) return p;
+    if(!p || !q) return p + q;
     if(l == r) {
         t[p].val.first += t[q].val.first;
         //t[p].val.second = l;
@@ -91,7 +88,6 @@ void dfs(int u, int fath) {
 }
 
 int main() {
-
     scanf("%d%d", &n, &m);
     for (int i = 1; i < n; i ++) {
         int u, v; scanf("%d%d", &u, &v);

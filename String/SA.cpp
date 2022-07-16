@@ -8,18 +8,14 @@ char s[N], a[N], ans[N >> 1];
 int n, w, sa[N], rk[N << 1], oldrk[N << 1];
 int ht[N];
 
-void init_sa()
-{
-
+void init_sa() {
     for (int i = 1; i <= n; i ++)    sa[i] = i, rk[i] = s[i];
-    for (int w = 1; w < n; w <<= 1)
-    {
+    for (int w = 1; w < n; w <<= 1) {
         sort(sa + 1, sa + n + 1,
              [&](int x, int y)
              { return rk[x] == rk[y] ? rk[x + w] < rk[y + w] : rk[x] < rk[y]; });
         memcpy(oldrk, rk, sizeof(rk));
-        for (int i = 1, p = 0; i <= n; ++i)
-        {
+        for (int i = 1, p = 0; i <= n; ++i) {
             if(oldrk[sa[i]] == oldrk[sa[i - 1]] &&  oldrk[sa[i] + w] == oldrk[sa[i - 1] + w])
                 rk[sa[i]] = p;
             else
@@ -29,8 +25,7 @@ void init_sa()
 }
 
 // ht[i] = lcp(sa[i], sa[i - 1])
-inline void init_ht()
-{
+inline void init_ht() {
     for (int i = 1, k = 0; i <= n; ++i) {
         if (rk[i] == 0) continue;
         if (k) --k;
@@ -39,10 +34,7 @@ inline void init_ht()
     }
 }
 
-
-int main()
-{
-    
+int main() {
     scanf("%s", a + 1);
     n = strlen(a + 1);
     int i;

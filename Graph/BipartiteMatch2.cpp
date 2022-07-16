@@ -13,8 +13,7 @@ bool match(int u) {
         if(!vis[v]) {
             vis[v] = true;
             if(p[v] == 0 || match(p[v])) {
-                p[v] = u;
-                return true;
+                p[v] = u; return true;
             }
         }
     }

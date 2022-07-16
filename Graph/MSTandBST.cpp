@@ -14,17 +14,14 @@ struct Edge{
 int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
 /*
 //二分做法
-bool check(int x)
-{
+bool check(int x) {
     for (int i = 1; i <= n; i ++) fa[i] = i;
 
     int cnt = 0;
-    for (int i = 1; i <= m; i ++)
-    {
+    for (int i = 1; i <= m; i ++) {
         int u = edge[i].u, v = edge[i].v, w = edge[i].w;
         if(w > x) break;
-        if(find(u)!= find(v))
-        {
+        if(find(u)!= find(v)) {
             fa[find(u)] = find(v);
             cnt++;
         }
@@ -33,24 +30,19 @@ bool check(int x)
     return cnt >= n - 1;
 }
 
-int main()
-{
-
+int main() {
     scanf("%d %d", &n, &m);
     for (int i = 1; i <= m; i ++)
         scanf("%d %d %d", &edge[i].u, &edge[i].v, &edge[i].w);
     sort(edge + 1, edge + 1 + m);
 
     int l = 1, r = 1e4;
-    while(l < r)
-    {
+    while(l < r) {
         int mid = l + r >> 1;
         if(check(mid))  r = mid;
         else l = mid + 1;
     }
-
     cout << n - 1 << ' ' << l;
-
     return 0;
 }
 

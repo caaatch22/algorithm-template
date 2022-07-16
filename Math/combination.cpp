@@ -17,8 +17,7 @@ int C(ll a, int b) /* a上b下 */{
 
 /*2. 递推 杨辉三角  a, b在2000这个数量级*/
 //O(N^2) 1e6~1e7
-void init()
-{
+void init() {
     for (int i = 0; i < N; i ++)
         for (int j = 0; j <= i; j ++)
             if(!j) C[i][j] = 1;

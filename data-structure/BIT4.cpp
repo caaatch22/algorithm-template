@@ -3,7 +3,6 @@
 //维护区间上的种类
 #include <bits/stdc++.h>
 using namespace std;
-
 const int N = 1000010;
 struct querys {
     int l, r, idx;
@@ -12,38 +11,32 @@ struct querys {
 
 int n, tr[N], m, a[N], ans[N], vis[N];
 int lowbit(int x) { return x & -x; }
-void modify(int x, int v)
-{
+void modify(int x, int v) {
     for (int i = x; i <= n; i += lowbit(i))
         tr[i] += v;
 }
 
-int sum(int x)
-{
+int sum(int x) {
     int res = 0;
     for (int i = x; i; i-= lowbit(i))
         res += tr[i];
     return res;
 }
 
-int main()
-{
+int main() {
     scanf("%d", &n);
     for (int i = 1; i <= n; i ++)    scanf("%d", &a[i]);
 
     scanf("%d", &m);
-    for (int i = 1; i <= m; i ++)
-    {
+    for (int i = 1; i <= m; i ++) {
         scanf("%d%d", &qs[i].l, &qs[i].r);
         qs[i].idx = i;
     }
     sort(qs + 1, qs + 1 + m);
 
     int last = 1;
-    for (int i = 1; i <= m; i ++)
-    {
-        for (int j = last; j <= qs[i].r; j ++)
-        {
+    for (int i = 1; i <= m; i ++) {
+        for (int j = last; j <= qs[i].r; j ++) {
             if(vis[a[j]])  modify(vis[a[j]], -1);
             modify(j, 1);
             vis[a[j]] = j;
@@ -53,6 +46,5 @@ int main()
     }
 
     for (int i = 1; i <= m; i ++)    printf("%d\n", ans[i]);
-
     return 0;
 }

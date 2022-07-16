@@ -1,8 +1,5 @@
-#include<iostream>
-#include<cstdio>
-#include<algorithm>
+#include <bits/stdc++.h>
 using namespace std;
-
 const int N = 2e5 + 5;
 int n, Q;
 int a[N];
@@ -27,24 +24,20 @@ public:
 	}
 } tree[2];
 
-int main()
-{
+int main() {
 	cin >> n >> Q;
 	for (int i = 1; i <= n; i++)
 		cin >> a[i];
 	for (int i = 1; i <= n; i++)
 		tree[i & 1].modify(i, a[i]); //建树
-	while(Q--)
-	{
+	while(Q--) {
 		int opt,x,y;
 		cin >> opt >> x >> y;
-		if(opt==1)
-		{
+		if(opt==1) {
 			tree[x & 1].modify(x, a[x] ^ y);
 			a[x] = y;
 		}
-		if(opt==2)
-		{
+		if(opt==2) {
 			int ans = 0;
 			if(!((x&1)^(y&1)))//l,r奇偶性相同
 				ans = tree[x & 1].query(y) ^ tree[x & 1].query(x - 1);

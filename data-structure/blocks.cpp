@@ -4,11 +4,9 @@ using namespace std;
 const int N = 5e4 + 10;
 int n, a[N], pos[N], st[N], ed[N], add[N];
 
-void init(int n)
-{
+void init(int n) {
     int t = sqrt(n);
-    for (int i = 1; i <= t; i ++)
-    {
+    for (int i = 1; i <= t; i ++) {
         st[i] = (i - 1) * t + 1;
         ed[i] = i * t;
     }
@@ -18,18 +16,14 @@ void init(int n)
     for (int i = 1; i <= t; i ++)
         for (int j = st[i]; j <= ed[i]; j ++)
             pos[j] = i;
-
 }
 
-void modify(int l, int r, int c)
-{
+void modify(int l, int r, int c) {
     int p = pos[l], q = pos[r];
-    if(p == q)
-    {
+    if(p == q) {
         for (int i = l; i <= r; i ++)  a[i] += c; 
     }
-    else 
-    {
+    else  {
         for (int i = l; i <= ed[p];  i++)    a[i] += c;
         for (int i = st[q]; i <= r; i ++)    a[i] += c;
 
@@ -38,15 +32,13 @@ void modify(int l, int r, int c)
     }
 }
 
-int main()
-{
+int main() {
     scanf("%d", &n);
     for (int i = 1; i <= n; i ++)    scanf("%d", &a[i]);
 
     init(n);
 
-    for (int i = 1; i <= n; i ++)
-    {
+    for (int i = 1; i <= n; i ++) {
         int op, l, r, c;
         scanf("%d%d%d%d", &op, &l, &r, &c);
         if(!op)
@@ -54,6 +46,5 @@ int main()
         else
             printf("%d\n", a[r] + add[pos[r]]);
     }
-
-        return 0;
+    return 0;
 }

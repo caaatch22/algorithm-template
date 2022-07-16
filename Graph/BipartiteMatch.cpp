@@ -1,43 +1,42 @@
-//poj3041
-//O(V*E)
-//view the asteroids as edge, and the weapon rays as vertex
-#include <cstdio>
-#include <cstring>
-using namespace std;
-
-const int N = 510;
-int G[N][N];
-int n, k, p[N], vis[N];
-
+/* 染色法判断二分图
+bool vis[N];
+int col[N], flag = 1, n, m;
+void dfs(int u, int t) {
+    if (vis[u]) {
+        if (col[u] != t) flag = 0;
+        return;
+    }
+    vis[u] = 1; col[u] = t;
+    for (int v : g[u]) {
+        dfs(v, t ^ 1);
+    }
+}
+bool isbit() {//是否为二分图
+    for (int u = 1; u <= n; u++) {
+        if (!vis[u]) dfs(u, 0);
+    }
+    return flag;
+}
+*/
+int G[N][M];  // 左半部n, 右半部m
+int n, m, p[M], vis[M];
 bool match(int u) {
-    for (int i = 1; i <= n; i ++) {
+    for (int i = 1; i <= m; i ++) {
         if(G[u][i] && !vis[i]) {
             vis[i] = true;
             if(p[i] == 0 || match(p[i])) {
-                p[i] = u;
-                return true;
+                p[i] = u;  return true;
             }
         }
     }
     return false;
 }
-
 int main() {
-
-    scanf("%d %d", &n, &k);
-    while(k --) {
-        int x, y;
-        scanf("%d%d", &x, &y);
-        G[x][y] = 1;
-    }
-
+    /*建图*/
     int res = 0;
     for (int i = 1; i <= n; i ++) {
         memset(vis, 0, sizeof vis);
         if(match(i)) res++;
     }
-
-    printf("%d\n", res);
-
     return 0;
 }

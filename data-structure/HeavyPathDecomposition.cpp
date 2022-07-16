@@ -65,10 +65,8 @@ void modify(int p, int l, int r, int k) {
 ////////////////////////树剖部分///////////////////////////
 //第一次dfs 维护sz, 重儿子， dep[], fa[]
 void dfs1(int u, int fath) {
-
 	sz[u] = 1, dep[u] = dep[fath] + 1, fa[u] = fath;
-	for(int v:G[u])
-	{
+	for(int v:G[u]) {
 		if(v == fath) continue;
 		dfs1(v, u);
 		sz[u] += sz[v];
@@ -77,7 +75,6 @@ void dfs1(int u, int fath) {
 }
 //第二次dfs， 维护dfs序，
 void dfs2(int u, int tp) {
-
 	dfn[u] = ++cnt, nw[cnt] = w[u], top[u] = tp;
 	if(!son[u]) return;
 	dfs2(son[u], tp); //递归重儿子
@@ -136,7 +133,6 @@ int main() {
 	while(m -- ) {
 		int op, u, v, k;
 		scanf("%d%d", &op, &u);
-		
 		if(op == 1) {
 			scanf("%d%d", &v, &k);
 			modify_path(u, v, k);
@@ -150,9 +146,7 @@ int main() {
 			printf("%lld\n", query_path(u, v));
 		}
 		else 
-			printf("%lld\n", query_tree(u));
-			
+			printf("%lld\n", query_tree(u));		
 	}
-
 	return 0;
 }

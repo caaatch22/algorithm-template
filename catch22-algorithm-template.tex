@@ -107,8 +107,12 @@ bezout定理：设$a, b$为正整数，则关于$x, y$的方程$ax + by = c$有�
 \cppcode{math/exgcd.cpp}
 
 \subsection{筛法}
+筛质数
 \cppcode{math/getprime.cpp}
+筛欧拉函数
 \cppcode{math/phi.cpp}
+筛莫比乌斯函数
+\cppcode{math/getMu.cpp}
 
 \subsection{组合数}
 \begin{enumerate}
@@ -141,6 +145,39 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 \cppcode{math/block-on-number.cpp}
 
 \subsection{M\"{o}bius反演}
+$\mu$为莫比乌斯函数，定义为
+$$ \mu(x)=\left\{
+\begin{aligned}
+	&1   \  \  \ \ \ n = 1  \\
+	&0    \  \  \ \ \  n\text{含有平方因子}  \\
+	&(-1)^k  \  \ k \text{为n本质不同的质因子个数} \\
+\end{aligned}
+\right.
+$$
+性质：
+$$ \sum_{d|n} \mu(d)=\left\{
+\begin{aligned}
+	&1   \  \  \ \ \ n = 1  \\
+	&0   \  \  \ \ \ n \neq 1 \\
+\end{aligned}
+\right.
+$$
+证：设 $n = \prod_{i=1}^{k}p_i^{c_i},
+n^{\prime} = \prod_{i=1}^{k}p_i$ \\
+那么$\sum_{d|n} \mu(d) = \sum_{d|n^{\prime}} \mu(d) 
+= \sum_{i=0}^{k}C_{k}^i \cdot (-1)^i 
+= (1+(-1))^k = 1$ \\
+反演：\\
+形式一：
+$$f(n) = \sum_{d|n}{g(d)} \Leftrightarrow g(n) = \sum_{d|n}{\mu(d)f(\frac{n}{d})}$$
+证：
+$$
+\sum_{d \mid n} \mu(d) f\left(\frac{n}{d}\right)=\sum_{d \mid n} \mu(d) \sum_{k \mid \frac{n}{d}} g(k)=\sum_{k \mid n} g(k) \sum_{d \mid \frac{n}{k}} \mu(d)=g(n)
+$$
+用$\sum_{d|n}g(d)$来替换$f(\frac{n}{d})$，再变换求和顺序。最后一步变换的依据：$\sum_{d|n}\mu(d) = [n=1]$，因此在$\frac{n}{k}=1$时第二个和式的值才为 。此时$n=k$，故原式等价于$\sum_{k|n}[n=k]\cdot g(k) = g(n)$ \\  
+形式二：
+$$f(n) = \sum_{n|d}{g(d)} \Leftrightarrow g(n) = \sum_{n|d}{\mu(\frac{d}{n})f(d)}$$
+
 
 
 \subsection{高斯消元}
@@ -148,7 +185,6 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 
 \subsection{Miller\ Rabin\ 素数测试}
 \cppcode{math/mr-test.cpp}
-
 
 \section{数据结构}
 
@@ -165,17 +201,21 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 \cppcode{data-structure/01Trie.cpp}
 
 \subsection{树状数组}
+\cppcode{data-structure/fenwich-tree.cpp}
 
 \subsection{线段树}
+\cppcode{data-structure/SegTree.cpp}
+扫描线：(面积)
+\cppcode{data-structure/SegTree-Xray.cpp}
 
 \subsection{可持久化线段树}
+\cppcode{data-structure/persistentSegTree.cpp}
 
 \subsection{线段树合并}
+\cppcode{data-structure/segtree-merge.cpp}
 
 \subsection{树链剖分}
-
-\subsection{莫队}
-
+\cppcode{data-structure/HeavyPathDecomposition.cpp}
 
 
 \subsection{左偏树}
@@ -200,15 +240,27 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 
 \subsection{最小生成树}
 \cppcode{graph/MST.cpp}
-对于完全图的$MST$问题，一般考虑使用$Boruvka$算法，我们要在$nlogn$或$nlog^2n$时间内求出每个连通块最小的连接的边，而这个边权一般可通过点权以一定方式求出。
-\cppcode{graph/boruvka.cpp}
+另外，对于完全图的$MST$问题，可以考虑使用$Boruvka$算法。我们要在$nlogn$或$nlog^2n$时间内求出每个连通块最小的连接的边，而这个边权一般可通过点权以一定方式求出。 通常不用直接写出，运用该思想求解。
 
 \subsection{kruskal重构树}
 \cppcode{graph/kruskalRebuildTree.cpp}
 
+\subsection{二分图匹配}
+二分图匹配的模型有两个要素：
+\begin{enumerate}
+	\item 节点能分成独立的两个集合，每个集合内部有$0$条边
+	\item 每个节点只能与$1$条匹配边相连
+\end{enumerate}
+二分图最小覆盖模型特点是：每条边有$2$个端点，二者至少选择一个。 \\
+k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大匹配数包含的边数。\\
+图的最大独立集：点集$S$中任意两点之间都没有边相连。其大小等于$n -$最大匹配数。(n是二分图总点数)
+\cppcode{graph/BipartiteMatch.cpp}
+
+
 \subsection{强连通分量缩点}
 时间复杂度$O(m+n)$，反向枚举scc\_cnt即是新图拓扑序。
 \cppcode{graph/tarjan-scc.cpp}
+
 
 \subsection{lca}
 \cppcode{graph/LCA.cpp}
@@ -217,11 +269,12 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 基环树的性质：点数等于边数；度数是点数两倍。一般题目中出现“从一个点到另一个点建一条边”，“N个点通过恰好N条双向道路连接起来，不存在任何两条道路连接了相同的两个点”等类似信息可以判定该图是基环树森林。以下是求基环树(森林)直径(和)代码
 \cppcode{graph/pseudotree-diameter.cpp}
 
+\subsection{dinic}
+\cppcode{graph/Dinic.cpp}
 
 \section{动态规划}
 
 \subsection{数位dp}
-
 
 
 \subsection{换根dp}
@@ -231,7 +284,9 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 \section{字符串}
 \subsection{KMP}
 \cppcode{string/kmp.cpp}
+
 \subsection{字符串Hash}
+\cppcode{string/stringHash.cpp}
 
 \subsection{Trie}
 \cppcode{string/Trie.cpp}
@@ -242,7 +297,7 @@ $\sum_{i=1}^{n}f(i) \lfloor \frac{n}{i} \rfloor$，由于$\lfloor \frac{n}{i} \r
 \subsection{SA}
 
 \subsection{Manacher}
-
+\cppcode{string/manacher.cpp}
 
 
 \section{其他}

@@ -44,7 +44,7 @@ int primes[N], minp[N], vis[N];
 void get_prime(int n) {
     int pcnt = 0;
     for(int i = 2; i <= n; i ++) {
-    	if(!vis[i]) primes[ ++ pcnt] = i;
+    	if(!vis[i]) primes[ ++ pcnt] = i, minp[i] = i;
     	for(int j = 1; j <= pcnt && i * primes[j] <= n; ++ j) {
         	vis[i * primes[j]] = 1;
             minp[primes[j] * i] = primes[j];
@@ -52,6 +52,7 @@ void get_prime(int n) {
     	}
     }
 }
+
 void decompose_log(int n) {
     int cnt = 0;
     while (n > 1) {
@@ -66,7 +67,6 @@ void decompose_log(int n) {
 }
 
 int main() {
-
     int n;  cin >> n;
     while(n --) {
         int x;

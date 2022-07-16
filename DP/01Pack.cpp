@@ -5,9 +5,7 @@ const int N = 1010;
 int f[N];
 int n, m;
 int v[N], w[N]; //体积，价值
-
 int main() {
-
     cin >> n >> m;
     for(int i = 1; i <= n; i++)   cin >> v[i] >> w[i];
 

@@ -228,6 +228,12 @@ $$f(n) = \sum_{n|d}{g(d)} \Leftrightarrow g(n) = \sum_{n|d}{\mu(\frac{d}{n})f(d)
 \end{enumerate}
 \cppcode{data-structure/leftish-tree.cpp}
 
+\subsection{莫队}
+普通莫队：
+\cppcode{data-structure/Mo.cpp}
+待修莫队：
+\cppcode{data-structure/modifyMo.cpp}
+
 \section{图论}
 \subsection{spfa}
 \cppcode{graph/spfa.cpp}
@@ -261,6 +267,13 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 时间复杂度$O(m+n)$，反向枚举scc\_cnt即是新图拓扑序。
 \cppcode{graph/tarjan-scc.cpp}
 
+\subsection{无向图的双连通分量}
+桥：
+\cppcode{graph/tarjan-eDcc.cpp}
+割点：
+\cppcode{graph/tarjan-vDcc.cpp}
+
+
 
 \subsection{lca}
 \cppcode{graph/LCA.cpp}
@@ -282,8 +295,7 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 \cppcode{DP/tree-change-root.cpp}
 
 \section{字符串}
-\subsection{KMP}
-\cppcode{string/kmp.cpp}
+
 
 \subsection{字符串Hash}
 \cppcode{string/stringHash.cpp}
@@ -291,10 +303,47 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 \subsection{Trie}
 \cppcode{string/Trie.cpp}
 
+\subsection{KMP}
+\cppcode{string/kmp.cpp}
+
+\subsection{Z-algorithm}
+\begin{itemize}
+	\item 给出字符串$a, b$，求$a$的每个后缀与$b$的LCP： \\
+	设$ \$ $为字符集外字符，求 $b+\$+a$的Z函数，则$a$的后缀$a[i..]$与$b$的LCP为 $Z(|b| + 1 + i)$ 。
+	\item 求$s$的每个前缀的出现次数：\\
+	求$s$ 的Z函数。对于每一个 $i$ ，如果 $Z(i)$ 不等于$0$，说明长度为 $Z(i), Z(i) - 1, \cdots , 1$ 的前缀在此处各出现了一次，所以求一个后缀和即可。在这个问题中一般令$Z(0) = |s|$。
+	\begin{minted}{cpp}
+for (int i = n + 1; i < 2 * n + 1; ++i)
+    S[z[i]]++;
+for (int i = n; i >= 1; --i)
+    S[i] += S[i + 1];
+	\end{minted}
+
+	\item 求 $s$的所有border: \\
+	KMP就可以，也可以用Z算法。求$s$的$Z$函数。对于每一个 $i$，如果 $i+Z(i) = |s|$ ，说明这个Z-Box对应一个border。（注：与KMP不同，这里只是求所有border，不是求所有前缀的border）
+\end{itemize}
+
+\cppcode{string/z-algorithm.cpp}
+
 \subsection{AC自动机}
 \cppcode{string/AC.cpp}
 
 \subsection{SA}
+$lcp(i, j)$表示后缀$i, j$的最长公共前缀(的长度)
+
+$height$数组定义： 
+$ht[i] = lcp(sa[i], sa[i - 1])$
+
+性质：
+$lcp(sa[i], sa[j]) = min\{ht[i + 1..j]\}$ \\
+由此，求两子串(排名为$i,j$)最长公共前缀就转化为了$RMQ$ 问题(求$ht[i+1]$到$ht[j]$的最小值)。
+
+本质不同的子串：$\frac{n*(n+1)}{2} - \sum_{i=2}^{n}ht[i]$
+
+$ht$数组连续一段不小于$h$的区间长度代表长$h$的这个子串的出现次数
+
+\cppcode{string/SA.cpp}
+
 
 \subsection{Manacher}
 \cppcode{string/manacher.cpp}
@@ -307,10 +356,17 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 \subsection{\_\_int128读写}
 \cppcode{others/int128-read-put.cpp}
 
+\subsection{整数二分}
+\cppcode{others/binary-answer.cpp}
+
 \subsection{单调栈}
 \cppcode{others/monotoneS.cpp}
 
 \subsection{单调队列}
 \cppcode{others/monotoneQ.cpp}
+
+\subsection{GospersHack}
+生成$n$元集合所有$k$元子集的算法。这个算法复杂度与答案个数是同阶的，比暴力枚举$2^n$个数然后分别算$popcount$要好。
+\cppcode{others/GospersHack.cpp}
 
 \end{document}

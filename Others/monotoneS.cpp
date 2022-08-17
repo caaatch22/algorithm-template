@@ -1,6 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
-const int N = 100010;
+const int N = 1000100;
 //单调栈， 记录每个数左边比他小（大）的第一个数（也可以记录其下标）
 int stk[N], tt, a[N];
 

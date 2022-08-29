@@ -56,5 +56,10 @@ struct doubleHash {
             (hash[r][0] - hash[l - 1][0] * pow_base[r - l + 1][0] % mod[0] + mod[0]) % mod[0],
             (hash[r][1] - hash[l - 1][1] * pow_base[r - l + 1][1] % mod[1] + mod[1]) % mod[1]};
     }
+    //double hash to A hash_val
+    ll get(int l, int r) {
+        auto h = this->operator[]({l, r});
+        return h[0] * 1000000000ll + h[1];
+    }
 };
 int main() {}

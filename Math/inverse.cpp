@@ -19,8 +19,6 @@ void init_inv () {
     inv[0] = 0, inv[1] = 1;
     for (int i = 2; i <= n; i++)
         inv[i] = (ll)(p - p / i) * inv[p % i] % p;//为了保证大于零加了个p
-    for (int i = 1; i<= n; i++)
-        cout << inv[i] << endl;
 
     return 0;
 }

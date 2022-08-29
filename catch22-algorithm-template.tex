@@ -106,6 +106,10 @@ bezout定理：设$a, b$为正整数，则关于$x, y$的方程$ax + by = c$有�
 \indent 时间复杂度：$\mathcal{O}(nlogn)$
 \cppcode{math/exgcd.cpp}
 
+\subsection{BSGS}
+find smallest non-negative $x$ s.t. $a^x = b \mod p$, or $-1$(assume $0^0 = 1$)
+\cppcode {math/BSGS.cpp}
+
 \subsection{筛法}
 筛质数
 \cppcode{math/getprime.cpp}
@@ -121,6 +125,22 @@ bezout定理：设$a, b$为正整数，则关于$x, y$的方程$ax + by = c$有�
 	\item $C_{n}^{0} + C_{n}^{1} + \cdots +C_{n}^{n} = 2^n$
 	\item $ lucas:\ C_{n}^{m} \equiv C_{n\ mod\ p}^{m\ mod\ p} * C_{n/p}^{m/p} $
 \end{enumerate}
+
+多重集组合数：
+
+设$S = \{n_1 \cdot a_1, n_2 \cdot a_2, \cdots n_k \cdot a_k \}$是一个由$n_1$个$a_1$,$n_2$个$a_2$,$\cdots$,$n_k$个$a_k$组成的多重集。设$n = \sum_{i=1}^{k}n_i$，对于任意整数$r \leq n$，从$S$中取出$r$个元素组成一个多重集(不考虑顺序)，产生的不同多重集的数量为：
+$$
+C_{k+r-1}^{k-1} 
+- \sum_{i=1}^{k}C_{k+r-n_i-2}^{k-1} 
++ \sum_{1 \leq i < j \leq k}C_{k+r-n_i - n_j-3}^{k-1}
+- \cdots
++(-1)^k C_{k+r-\sum_{i=1}^{k}n_i-(k+1) }^{k-1} 
+$$
+
+多重集排列数：
+
+多重集$S = \{n_1 \cdot a_1, n_2 \cdot a_2, \cdots n_k \cdot a_k \}$生成的排列是$\frac{(\sum_{i=1}^{k}n_i)!}{n_1 ! \cdot n_2! \cdots n_k !}$
+
 \cppcode{math/combination.cpp}
 
 
@@ -185,6 +205,9 @@ $$f(n) = \sum_{n|d}{g(d)} \Leftrightarrow g(n) = \sum_{n|d}{\mu(\frac{d}{n})f(d)
 
 \subsection{Miller\ Rabin\ 素数测试}
 \cppcode{math/mr-test.cpp}
+
+\subsection{FFT}
+\cppcode{math/fft.cpp}
 
 \section{数据结构}
 
@@ -346,6 +369,21 @@ $ht$数组连续一段不小于$h$的区间长度代表长$h$的这个子串的�
 
 
 \subsection{Manacher}
+用$Manacher+hash$可以求出所有本质不同的回文子串(存hash值),时间复杂度$\mathcal{O}(|s|)$。但是不用于求每个本质不同回文子串出现次数相关统计，因为统计出现次数时，$while(l<=r)$中不可以$break$，复杂度$n^2$
+	\begin{minted}{cpp}
+    auto p = manacher(s);
+    Hash hs(s); //or doubleHash
+    set<ull> res; // ll when doubleHash
+    for (int mid = 1; mid < p.size() - 1; mid ++) {
+        //枚举回文子串的左右端点
+        int l = (mid - p[mid] + 1) / 2, r = (mid + p[mid] - 1) / 2;
+        while(l <= r) {
+            if(res.count(hash.get(l, r))) break;
+            res.insert(hash.get(l++, r--));
+        }
+    }
+\end{minted}
+
 \cppcode{string/manacher.cpp}
 
 
@@ -368,5 +406,8 @@ $ht$数组连续一段不小于$h$的区间长度代表长$h$的这个子串的�
 \subsection{GospersHack}
 生成$n$元集合所有$k$元子集的算法。这个算法复杂度与答案个数是同阶的，比暴力枚举$2^n$个数然后分别算$popcount$要好。
 \cppcode{others/GospersHack.cpp}
+
+\subsection{C++17-STL}
+\cppcode{others/c++17-and-STL.cpp}
 
 \end{document}

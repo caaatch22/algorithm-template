@@ -62,7 +62,7 @@ void decompose_log(int n) {
             cnt++;
             n /= t;
         }
-        printf("%d %d\n", i, s);
+        printf("%d %d\n", t, cnt);
     }
 }
 

@@ -1,38 +1,27 @@
 #include<bits/stdc++.h>
 using namespace std;
-
-const int N = 22000010;
-char s[N], a[N];
-int p[N], n;
-
-void init() {
-    int k = 0;
-    s[k++] = '$', s[k++] = '#';
-    for (int i = 0; i < n; i ++ ) s[k ++ ] = a[i], s[k ++ ] = '#';
-    s[k ++ ] = '^';
-    n = k;
-}
-
-void manacher() {
-    int mr = 0, mid;
-    for (int i = 1; i < n; i ++) {
-        if(i < mr)  p[i] = min(p[mid * 2 - i], mr - i);
-        else  p[i] = 1;
-        while(s[i - p[i]] == s[i + p[i]])   p[i]++;
-        if(i + p[i] > mr) {
-            mr = i + p[i];
-            mid = i;
-        }
+// return p, p[i]表示修改后的串中以i为中心的最长回文半径
+vector<int> manacher(const string& _s) {
+    vector<int> p(_s.size() * 2 + 1);
+    string s(_s.size() * 2 + 1, '$');
+    for (int i = 0; i < _s.size(); i++) s[2 * i + 1] = _s[i];
+    for(int i = 0, maxr = 0, mid = 0; i < s.size(); i++) {
+        if(i < maxr) p[i] = min(p[mid * 2 - i], maxr - i);
+        while(i - p[i] - 1 >= 0 && i + p[i] + 1 < s.size() 
+            && s[i - p[i] - 1] == s[i + p[i] + 1]) 
+            ++p[i];
+        if(i + p[i] > maxr) maxr = i + p[i], mid = i;
     }
+    return p;
 }
+
 
 int main() {
-    scanf("%s", a);
-    n = strlen(a);
-    init();
-    manacher();
-    int res = 0;
-    for (int i = 0; i < n; i ++)   res = max(res, p[i]);
-    cout << res - 1;
-    return 0;
+    string s;
+    cin >> s;
+    auto p = manacher(s);
+    // for (int i = 0; i < p.size(); i ++) {
+    //     cout << p[i] << " \n"[i == p.size() - 1];
+    // }
+    cout << (*max_element(p.begin(), p.end())) << endl;
 }

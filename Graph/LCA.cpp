@@ -1,14 +1,11 @@
 /*
 求lca： 1.倍增  2.树剖  3.tarjan离线
-
 lca用处
 1. 树上两点之间的距离 （多维护一个dist数组， dis[u] + dis[v] - 2 * dis[lca(u, v)]）
 2. 树上两条路径是否相交 （如果两条路径相交，那么一定有一条路径的LCA在另一条路径上）
 */
-//acwing1171 树上距离
 #include <bits/stdc++.h>
 #define pb push_back
-#define endl '\n'
 using namespace std;
 const int N = 1e4 + 10;
 
@@ -48,20 +45,4 @@ int lca(int a, int b) {
         if(fa[a][k] != fa[b][k])
             a = fa[a][k], b = fa[b][k];
     return fa[a][0];
-}
-
-int main() {
-    ios::sync_with_stdio(false), cin.tie(0);
-    cin >> n >> m;
-    for(int i = 1; i < n ; i ++) {
-        int u, v, w;  cin >> u >> v >> w;
-        G[u].pb({v, w}), G[v].pb({u, w});
-    }    
-    bfs(1);
-    while(m -- ) {
-        int u, v; cin >> u >> v;
-        int anc = lca(u, v);
-        cout << dis[u] + dis[v] - 2 * dis[anc] << endl;
-    }
-    return 0;
 }

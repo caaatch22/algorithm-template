@@ -1,21 +1,22 @@
-#include<bits/stdc++.h>
-using namespace std;
-
-const int N = 1e5 + 10;
-int f[N][21], n, m;
-int a[N];
-//f[i][j]表示闭区间[i, i + 2^j - 1]的最大值
-
-void init_st() {
-    // cout << __lg(N) << endl;
-    for (int j = 0; j < 21; j ++)
-        for (int i = 1; i + (1 << j) - 1 <= n; i++)//区间长度是2^j所以要减一
-            if(!j)  f[i][j] = a[i];
-            else
-                f[i][j] = max(f[i][j - 1], f[i + (1 << j - 1)][j - 1]);
-}
-
-int query(int l, int r) {
-    int k = __lg(r - l + 1);
-    return max(f[l][k], f[r - (1 << k) + 1][k]);
-}
+//f[i][j]表示左闭右开 [i, i + 2^j)的最大值
+template<class T,
+    class Cmp = std::less<T>>
+struct RMQ {
+    const int n; // 从零开始
+    const Cmp cmp;
+    std::vector<std::vector<T>> a;
+    RMQ(const std::vector<T> &init) : n(init.size()), cmp(Cmp()) {
+        int lg = std::__lg(n);
+        a.assign(n, std::vector<T>(lg + 1));
+        for (int j = 0; j <= lg; j++) {
+            for (int i = 0; i + (1 << j) <= n; i++) {
+                a[i][j] = (j == 0 ? init[i] : std::min(a[i][j - 1], a[i + (1 << (j - 1))][j - 1], cmp));
+            }
+        }
+    }
+    // 左闭右开
+    T rangeMin(int l, int r) {
+        int k = std::__lg(r - l);
+        return std::min(a[l][k], a[r - (1 << k)][k], cmp);
+    }
+};

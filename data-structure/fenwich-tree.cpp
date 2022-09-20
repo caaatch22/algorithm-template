@@ -1,62 +1,62 @@
-const int N = 1e5 + 10;
-int tr[N], a[N];
-inline int lowbit(int x) {return x & -x;}
-
-int query(int x) {
-    int res = 0;
-    for (int i = x; i; i -= lowbit(i)) res += tr[i];
-    return res;
-}
-
-void add(int x, int val) {
-    for(int i = x; i <= n; i += lowbit(i))
-        tr[i] += val;
-}
-
-//fenwich-tree写区间修改，区间查询
+// fenwich-tree写区间修改，区间查询
 //记录两个数组 b[i] = a[i] - a[i - 1]; c[i] = i * b[i];
+// a[1~x] = \sum_{i=1}{x} \sum_{j=1}{i}b[j]
+// = \sum{i=1}{x}(x-i+1)*b[i] 
+// = (x+1)\sum_{i=1}{x}b[i] - \sum_{i=1}{x}i*b[i]
+
 #include <bits/stdc++.h>
+#define rep(i, a, b) for (int i = (a); i <= (b); i ++)
 using namespace std;
-typedef long long ll;
-const int N = 1e5 + 10;
-int a[N], b[N];
-ll t1[N], t2[N]; //维护b[i], b[i] * i的前缀和
-int n, m;
+using ll = long long;
 
-void add(ll tr[], int x, ll c) {
-    for (int i = x; i <= n; i += lowbit(i))
-        tr[i] += c;
-}
-
-ll query(ll tr[], int x) {
-    ll res = 0;
-    for (int i = x; i; i-= lowbit(i))
-        res += tr[i];
-    return res;
-}
-
-ll preSum(int x) { return query(t1, x) * (x + 1) - query(t2, x); }
+template<typename T/*, class OP = plus<T>*/>
+struct fenwick {
+    int n;
+    // const OP op;
+    vector<T> c;
+    fenwick(int _n) : n(_n), c(_n + 1, 0)/*, op(OP())*/ {}
+    void add(int x, T v) {
+        for (int i = x; i <= n; i += i & -i) {
+            c[i] += v; // c[i] = op(c[i], v)
+        }
+    }
+    T sum(int x) {
+        T res{};
+        for (int i = x; i; i -= i & -i) {
+            res += c[i];
+        }
+        return res;
+    }
+};
 
 int main() {
-    scanf("%d%d", &n, &m);
-    for (int i = 1; i<=n; i++) scanf("%d", &a[i]);
-
-    for (int i = 1; i <= n; i++) {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int n, m;
+    cin >> n >> m;
+    vector<int> a(n + 1);
+    fenwick<ll> t1(n), t2(n); //维护b[i], b[i] * i的前缀和
+    rep(i, 1, n) cin >> a[i];
+    rep(i, 1, n) {
         int b = a[i] - a[i - 1];
-        add(t1, i, b);
-        add(t2, i, (ll)b * i);
+        t1.add(i, b);
+        t2.add(i, 1ll * b * i);
     }
-    while(m -- ) {
-        char op[2];
-        int l, r, d;
-        scanf("%s%d%d", op, &l, &r);
-        if(*op == 'Q')
-            printf("%lld\n", preSum(r) - preSum(l - 1));
+    auto preSum = [&](int x) {
+        return t1.sum(x)*(x + 1) - t2.sum(x);
+    };
+    while(m --) {
+        int op, l, r, d;
+        cin >> op >> l >> r;
+        if(op == 2) {
+            cout << preSum(r) - preSum(l - 1) << '\n';
+        }
         else {
-            scanf("%d", &d);
-            //a[l] += d;
-            add(t1, l ,d), add(t2, l, l * d);
-            add(t1, r + 1, -d), add (t2, r + 1, (r + 1) * -d);
+            cin >> d;
+            t1.add(l, d);
+            t2.add(l, 1ll* l * d);
+            t1.add(r + 1, -d);
+            t2.add(r + 1, 1ll * (r + 1) * -d);
         }
     }
     return 0;

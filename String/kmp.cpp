@@ -5,7 +5,7 @@ const int N = 1e6 + 10;
 char s[N];
 int nxt[N], n;
 /*
-//区间l->r的kmp
+//区间[l, r]的kmp
     nxt[l] = 0;
     for (int i = l + 1; i <= r; i ++) {
         int j = nxt[i - 1];

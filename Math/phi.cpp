@@ -42,3 +42,14 @@ void sel_phi(int n) {
         }
     }
 }
+
+/*
+简短的nlog(n)时间求phi[]
+vector<int> phi(n + 1);
+iota(phi.begin(), phi.end(), 0);
+for (int i = 1; i <= n; i ++) {
+    for (int j = i; j <= n; j += i) {
+        phi[j] -= phi[i];
+    }
+}
+*/

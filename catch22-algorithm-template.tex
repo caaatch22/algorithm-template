@@ -100,6 +100,7 @@
 注意考虑$x$是$mod$倍数的情况
 \cppcode{math/inverse.cpp}
 
+
 \subsection{扩展欧几里德算法}
 bezout定理：设$a, b$为正整数，则关于$x, y$的方程$ax + by = c$有整数解当且仅当$c$是$gcd(a, b)$的倍数。 \\
 返回结果：$ax+by=gcd(a,b)$ 的一组解 (x, y)  \\
@@ -227,12 +228,13 @@ $$f(n) = \sum_{n|d}{g(d)} \Leftrightarrow g(n) = \sum_{n|d}{\mu(\frac{d}{n})f(d)
 \cppcode{data-structure/fenwich-tree.cpp}
 
 \subsection{线段树}
-\cppcode{data-structure/SegTree.cpp}
+\cppcode{data-structure/SegmentTree.cpp}
 扫描线：(面积)
 \cppcode{data-structure/SegTree-Xray.cpp}
 
 \subsection{可持久化线段树}
 \cppcode{data-structure/persistentSegTree.cpp}
+\cppcode{data-structure/persistentSegTree2.cpp}
 
 \subsection{线段树合并}
 \cppcode{data-structure/segtree-merge.cpp}
@@ -241,20 +243,23 @@ $$f(n) = \sum_{n|d}{g(d)} \Leftrightarrow g(n) = \sum_{n|d}{\mu(\frac{d}{n})f(d)
 \cppcode{data-structure/HeavyPathDecomposition.cpp}
 
 
-\subsection{左偏树}
-支持操作(以维护最小值为例)：
-\begin{enumerate}
-	\item 找到最小值 $\mathcal{O}(1)$
- 	\item 删除最小值 $\mathcal{O}(logn)$
-	\item 插入一个值 $\mathcal{O}(logn)$
-	\item 合并两个堆 $\mathcal{O}(logn)$
-\end{enumerate}
-\cppcode{data-structure/leftish-tree.cpp}
+%\subsection{左偏树}
+%支持操作(以维护最小值为例)：
+%\begin{enumerate}
+%	\item 找到最小值 $\mathcal{O}(1)$
+% 	\item 删除最小值 $\mathcal{O}(logn)$
+%	\item 插入一个值 $\mathcal{O}(logn)$
+%	\item 合并两个堆 $\mathcal{O}(logn)$
+%\end{enumerate}
+%\cppcode{data-structure/leftish-tree.cpp}
+
+\subsection{珂朵莉}
+\cppcode{data-structure/ODT.cpp}
 
 \subsection{莫队}
 普通莫队：
 \cppcode{data-structure/Mo.cpp}
-待修莫队：
+带修莫队：
 \cppcode{data-structure/modifyMo.cpp}
 
 \section{图论}
@@ -297,9 +302,11 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 \cppcode{graph/tarjan-vDcc.cpp}
 
 
-
 \subsection{lca}
 \cppcode{graph/LCA.cpp}
+
+\subsection{2-SAT}
+\cppcode{graph/twoSAT.cpp}
 
 \subsection{基环树}
 基环树的性质：点数等于边数；度数是点数两倍。一般题目中出现“从一个点到另一个点建一条边”，“N个点通过恰好N条双向道路连接起来，不存在任何两条道路连接了相同的两个点”等类似信息可以判定该图是基环树森林。以下是求基环树(森林)直径(和)代码
@@ -311,11 +318,15 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 \section{动态规划}
 
 \subsection{数位dp}
-
+\cppcode{DP/digitDP.cpp}
 
 \subsection{换根dp}
 换根dp一般时间复杂度为$\mathcal{O}(n)$，需要对树处理得到大规模答案，如对每个点得到一个答案。
 \cppcode{DP/tree-change-root.cpp}
+
+\subsection{数据结构优化dp}
+LIS计数
+\cppcode{DP/data-structure-DP.cpp}
 
 \section{字符串}
 
@@ -394,6 +405,9 @@ $ht$数组连续一段不小于$h$的区间长度代表长$h$的这个子串的�
 \subsection{\_\_int128读写}
 \cppcode{others/int128-read-put.cpp}
 
+\subsection{大整数运算}
+\cppcode{others/BigInt.cpp}
+
 \subsection{整数二分}
 \cppcode{others/binary-answer.cpp}
 
@@ -402,6 +416,9 @@ $ht$数组连续一段不小于$h$的区间长度代表长$h$的这个子串的�
 
 \subsection{单调队列}
 \cppcode{others/monotoneQ.cpp}
+
+\subsection{矩阵快速幂}
+\cppcode{others/matrix-power.cpp}
 
 \subsection{GospersHack}
 生成$n$元集合所有$k$元子集的算法。这个算法复杂度与答案个数是同阶的，比暴力枚举$2^n$个数然后分别算$popcount$要好。

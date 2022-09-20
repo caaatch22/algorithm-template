@@ -13,7 +13,6 @@ int main() {
         while(hh <= tt && /*后面改成要维护的最小值*/a[q[tt]] >= a[i]) tt -- ;//求区间最小
         q[ ++ tt ] = i;
         if(i >= k-1) printf("%d ",a[q[hh]]);
-        
     }
     return 0;
 }

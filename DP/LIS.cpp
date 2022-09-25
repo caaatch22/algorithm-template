@@ -1,12 +1,4 @@
-//最长上升子序列
 //n^2做法  (转移可拓展)
-// int main() {
-
-//     const int N = 1e3 + 10;
-//     f[N] = {0};
-//     cin >> n;
-//     for(int i = 1; i <= n; i ++)  cin >> a[i];
-    
 //     for(int i = 1; i <= n; i ++)
 //     {
 //         f[i] = 1;
@@ -14,13 +6,6 @@
 //             if(a[j] < a[i]) f[i] = max(f[i], f[j] + 1);
 //     }
     
-//     int res = 0;
-//     for(int i = 1; i <= n; i ++)  res = max(res, f[i]);
-//     cout << res;
-    
-//     return 0;
-// }
-
 
 //同时求了最长上升子序列和最长下降子序列
 #include <bits/stdc++.h>

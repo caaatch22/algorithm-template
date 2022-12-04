@@ -1,31 +1,43 @@
 // kruskal
-const int N = 1e5 + 10;
-struct edge {
+using ll = long long;
+struct Edge {
     int u, v, w;
     bool operator<(const edge &rhs) const { return w < rhs.w; }
-} edges[N];
+};
 
-int fa[N], n, m;
-int find(int x) { return x == fa[x] ? x : fa[x] = find(fa[x]); }
+struct DSU {
+    int n;
+    vector<int> f;
+    DSU(int n): n(n), f(n) { iota(f.begin(), f.end(), 0); }
+    int find(int x) { return x == f[x] ? x : f[x] = find(f[x]); }
+    bool merge(int u, int v) {
+        u = find(u), v = find(v);
+        if(u == v) return false;
+        f[v] = u;
+        return true;
+    } 
+};
 
 int kruskal() {
     cin >> n >> m;
-    int u, v, w, ans = 0;
-    for (int i = 1; i <= m; i ++) {
+    ll ans = 0;
+    vector<Edge> edge(m);
+    for (int i = 0; i < m; i ++) {
+        int u, v, w;
         cin >> u >> v >> w;
-        edges[i] = {u, v, w};   
+        u--, v--;
+        edge[i] = {u, v, w};
     }
-    sort(edges + 1, edges + 1 + m);
-    for (int i = 1; i <= n; i ++) fa[i] = i;
-    for (int i = 1; i <= m; i ++) {
-        auto [u, v, w] = edges[i];
-        u = find(u), v = find(v);
-        if(u == v) continue;
-        fa[u] = v;
-        ans += w;
+    sort(edge.begin(), edge.end());
+    DSU dsu(n);
+    for (auto [u, v, w]: edge) {
+        if(dsu.merge(u, v)) {
+            ans += w;
+        }
     }
     return ans;
 }
+
 
 //prim
 const int N = 510, inf = 0x3f3f3f3f;

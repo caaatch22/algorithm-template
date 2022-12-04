@@ -72,12 +72,38 @@ void solve() {
         cout << f.ht[i] << " \n"[i + 1 == s.size()];
 }
 
-int main() {
-    ios::sync_with_stdio(false);
-    cin.tie(nullptr);
-    int T; cin >> T;
-    while (T -- ) {
-        solve();
+/* nlogn版
+
+int n, m;
+char s[N];
+int sa[N], rk[N], ht[N], x[N], id[N], cnt[N];
+
+void init_sa() {
+    m = 300;
+    for (int i = 1; i <= m; i++) cnt[i] = 0;
+    for (int i = 1; i <= n; i++) ++ cnt[x[i] = s[i]];
+    for (int i = 1; i <= m; i++) cnt[i] += cnt[i - 1];
+    for (int i = n; i; i--) sa[cnt[x[i]]--] = i;
+    for (int w = 1; w <= n; w <<= 1) {
+        int num = 0;
+        for (int i = n - w + 1; i <= n; i++) id[++ num] = i;
+        for (int i = 1; i <= n; i++) 
+            if (sa[i] > w) id[++ num] = sa[i] - w;
+        for (int i = 1; i <= m; i++) cnt[i] = 0;
+        for (int i = 1; i <= n; i++) cnt[x[i]] ++;
+        for (int i = 1; i <= m; i++) cnt[i] += cnt[i - 1];
+        for (int i = n; i; i--) sa[cnt[x[id[i]]] --] = id[i], id[i] = 0;
+		for(int i = 1; i <= n; i ++) swap(x[i], id[i]);
+        x[sa[1]] = 1, num = 1;
+        auto cmp = [&](int a, int b, int w) {
+            return id[a] == id[b] && id[a + w] == id[b + w];
+        };
+        for (int i = 2; i <= n; i++)
+            x[sa[i]] = cmp(sa[i], sa[i - 1], w) ? num : ++num;
+        if (n == num) break;
+        m = num;
     }
-    return 0;
+    for (int i = 1; i <= n; i ++) rk[sa[i]] = i;
 }
+
+*/

@@ -1,64 +1,106 @@
-//luogu3808
 #include <bits/stdc++.h>
+
 using namespace std;
 
-const int N = 1e6 + 10;
-int n;
-char s[N];
+constexpr int N = 2e5;
 
-namespace ac
-{
+struct ACM {
 
-int tr[N][26], fail[N], idx;
-queue<int> q;
-int cnt[N];
-
-void insert(char* s) {
-    int p = 0;
-    for (int i = 1; s[i]; ++i) {
-        int u = s[i] - 'a';
-        if(!tr[p][u])  tr[p][u] = ++idx;
-        p = tr[p][u];
+    int state_num;
+    struct Node {
+        array<int, 26> nxt;
+        int fail;
+        Node(): nxt{}, fail(0) {}
+    };
+    vector<Node> vec;
+    ACM(int n) : vec(n + 1) {}
+    int insert(const string& s) {
+        int p = 0;
+        for (auto ch: s) {
+            int &u = vec[p].nxt[ch - 'a'];
+            if(!u) {
+                u = ++state_num;
+            }
+            p = u;
+        }
+        return p;
     }
-    ++cnt[p];
-}
-
-void build() {
-    for (int i = 0; i < 26; ++i)
-        if(tr[0][i]) q.push(tr[0][i]);
-    
-    while(q.size()) {
-        int u = q.front(); q.pop();
-        for (int i = 0; i < 26;  i++) {
-            if(tr[u][i])
-                fail[tr[u][i]] = tr[fail[u]][i], q.push(tr[u][i]); //原本这个tr[fail[u]][i]可能不存在（为0）
-                                                                   // 但是下一步else做了一个优化（类似于路径压缩）
-            else
-                tr[u][i] = tr[fail[u]][i];
+    void build() {
+        queue<int> q;
+        for(auto i: vec[0].nxt) {
+            if(i) q.push(i);
+        }
+        while(q.size()) {
+            int u = q.front(); q.pop();
+            for (int i = 0; i < 26; i ++) {
+                int &v = vec[u].nxt[i];
+                int w = vec[vec[u].fail].nxt[i];
+                if(v) {
+                    vec[v].fail = w;
+                    q.push(v);
+                } else {
+                    v = w;
+                }
+            }
         }
     }
-}
 
-int query(char *s) {
-    int u = 0, res = 0;
-    for (int i = 1; s[i]; ++i) {
-        u = tr[u][s[i] - 'a'];
-        for (int j = u; j && cnt[j] != -1; j = fail[j])
-            res += cnt[j], cnt[j] = -1;
+};
+
+void solve() {
+    int n;
+    cin >> n;
+    vector<string> patterns(n);
+    ACM ac(N);
+
+    vector<int> id(n); // id[i]表示第i个字符串结尾的state_num
+    for (int i = 0; i < n; i ++) {
+        cin >> patterns[i];
+        id[i] = ac.insert(patterns[i]);
     }
-    return res;
-}
+    ac.build();
+    // cerr << "state_num == " << ac.state_num << '\n';
+    // for (int i = 1; i <= ac.state_num; i ++) {
+    //     cerr << i << ".fail = "<< ac.vec[i].fail << "\n";
+    // }
+    // cerr << "/////////////////" << '\n';
+
+    vector<vector<int>> G(ac.state_num + 1);
+    for (int i = 1; i <= ac.state_num; i ++) {
+        G[ac.vec[i].fail].push_back(i);
+    }
+
+    string t;
+    cin >> t;
+
+    int u = 0;
+    vector<int> cnt(ac.state_num + 1);
+    for (auto ch: t) {
+        u = ac.vec[u].nxt[ch - 'a'];
+        cnt[u]++;
+        // cerr << u << '\n';
+    }
+    
+    function<void(int)> dfs = [&](int u) {
+        for (auto v: G[u]) {
+            dfs(v);
+            cnt[u] += cnt[v];
+        }
+    };
+    dfs(0);
+    // cerr << "///////////////////////" << '\n';
+    for (int i = 0; i < n; i++) {
+        cout << cnt[id[i]] << '\n';
+    }
 
 }
 
 int main() {
-    scanf("%d", &n);
-    for (int i = 1; i <= n; i ++) {
-        scanf("%s", s + 1);
-        ac::insert(s);
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int T = 1; // cin >> T;
+    while(T --) {
+        solve();
     }
-    ac::build();
-    scanf("%s", s + 1);
-    printf("%d\n", ac::query(s));
     return 0;
 }

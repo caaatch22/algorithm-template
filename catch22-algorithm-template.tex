@@ -119,6 +119,9 @@ find smallest non-negative $x$ s.t. $a^x = b \mod p$, or $-1$(assume $0^0 = 1$)
 筛莫比乌斯函数
 \cppcode{math/getMu.cpp}
 
+\subsection{分解质因数(预处理因子)}
+\cppcode{math/decomposeFactor.cpp}
+
 \subsection{组合数}
 \begin{enumerate}
 	\item $C_{n}^{m} = C_{n}^{n-m}$
@@ -236,11 +239,44 @@ $$f(n) = \sum_{n|d}{g(d)} \Leftrightarrow g(n) = \sum_{n|d}{\mu(\frac{d}{n})f(d)
 \cppcode{data-structure/persistentSegTree.cpp}
 \cppcode{data-structure/persistentSegTree2.cpp}
 
+
 \subsection{线段树合并}
 \cppcode{data-structure/segtree-merge.cpp}
-
+\cppcode{data-structure/segmentTree_merge_jiangly.cpp}
 
 \subsection{DSU\ on\ tree}
+\textbf{静态}统计树上\textbf{所有子树}具有某些性质的个数\\
+
+$\mathcal{O}(n^2)$的方式：
+\begin{enumerate}
+	\item 递归每个子树，记录某种性质出现
+	\item 退出子树时候清空cnt数组(一般用于记录性质啥的)，以免影响到其他子树的统计
+	\item 这样对于父节点而言，就要重新统计这颗子树的性质
+\end{enumerate}
+
+\textbf{优化：}
+
+我们发现，某个节点的最后一棵子树可以不用清空统计。这貌似是一个常数优化，但当我们将最后一棵子树改成重儿子的时候，可以证明这样的时间复杂度是$\mathcal{O}(nlogn)$的。
+
+\textbf{流程：}
+
+\begin{enumerate}
+	\item 第一次dfsHson得到重儿子
+	\item dfs中，先递归其所有轻儿子，最后递归重儿子
+	\begin{minted}{cpp}
+    for (auto v:G[u]) {
+        if(v == fa || v == son[u]) continue;
+        dfs(v, u, false);
+    }
+    if(son[u] != -1) {
+        dfs(son[u], u, true);
+    }
+	\end{minted}
+
+	\item calc当前点(u)以及其所有轻儿子(在calc中递归完成)
+	\item 如果当前点是其父亲的轻儿子，消除影响(同样通过calc完成，calc传入一个影响val可正可负)
+\end{enumerate}
+
 \cppcode{data-structure/dsu-on-tree.cpp}
 
 \subsection{树链剖分}
@@ -324,6 +360,9 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 
 \section{动态规划}
 
+\subsection{背包}
+\cppcode{DP/pack.cpp}
+
 \subsection{数位dp}
 \cppcode{DP/digitDP.cpp}
 
@@ -332,7 +371,21 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 \cppcode{DP/tree-change-root.cpp}
 
 \subsection{数据结构优化dp}
-LIS计数
+\textbf{1D/1D dp转移}
+
+\subsection{斜率优化dp}
+
+(待完善)
+
+\begin{enumerate}
+	\item 单调队列优化 
+	\item 二分
+	\item cdq分治
+\end{enumerate}
+
+\cppcode{DP/convex-hull-trick.cpp}
+
+例：LIS计数
 \cppcode{DP/data-structure-DP.cpp}
 
 \section{字符串}
@@ -385,6 +438,21 @@ $ht$数组连续一段不小于$h$的区间长度代表长$h$的这个子串的�
 
 \cppcode{string/SA.cpp}
 
+\subsection{SAM}
+
+\begin{enumerate}
+  \item
+	SAM的总状态数不超过$2n-1$ ，当字符串形如$abbb...$  时取到上界  	
+  \item
+	SAM的总转移数不超过$3n-4$ ，当字符串形如 $abbb...bc$ 时取到上界
+  \item 构建SAM的复杂度为$| \Sigma| n$ ， $\Sigma$ 为字符集。（瓶颈是复制节点，所以如果字符集过大，可以考虑用map代替数组）
+  
+\end{enumerate}
+
+SAM的总转移数不超过  ，当字符串形如  时取到上界
+构建SAM的复杂度为 ，  为字符集。（瓶颈是复制节点，所以如果字符集过大，可以考虑用map代替数组）
+
+\cppcode{string/SAM.cpp}
 
 \subsection{Manacher}
 用$Manacher+hash$可以求出所有本质不同的回文子串(存hash值),时间复杂度$\mathcal{O}(|s|)$。但是不用于求每个本质不同回文子串出现次数相关统计，因为统计出现次数时，$while(l<=r)$中不可以$break$，复杂度$n^2$
@@ -433,5 +501,27 @@ $ht$数组连续一段不小于$h$的区间长度代表长$h$的这个子串的�
 
 \subsection{C++17-STL}
 \cppcode{others/c++17-and-STL.cpp}
+
+\subsection{一些结论}
+
+\begin{enumerate}
+	\item 维护区间加， 区间查gcd
+	利用gcd(a, b) = gcd(a-b, b)  // 常用结论 \\
+	考虑维护差分序列，则gcd(a[l], a[l + 1], ..., a[r]) = gcd(a[l], b[l + 1], .., b[r])
+	\item
+	  \subitem 一个序列的异或和小于等于数值和 $a+b=a \^ b+2(a \& b)$
+	  \subitem 一个序列的数值和和异或和奇偶性相同
+
+	\item 一般估计因子数是 $\mathcal{O}(\sqrt{n})$，但这个上界是比较松的。1e18内的数最多有103680个因子，1e9内有1344个因子
+
+	\item 除法上取整： $(a + b - 1) / b$， 或者$ceil(a.0 / b.0)$
+	\item $\sum_{k=1}^{n-1}{k \cdot k!} = n! - 1$
+	\item 根号trick：
+	若a[i] > 0, $\sum_{i=1}^{n} a[i] = n$,则a中不同的数只有$\sqrt{n}$种
+		
+\end{enumerate}
+
+
+
 
 \end{document}

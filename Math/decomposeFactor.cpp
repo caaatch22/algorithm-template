@@ -66,6 +66,22 @@ void decompose_log(int n) {
     }
 }
 
+vector<int> divisors[N + 10];
+// 预处理因子：
+void init() {
+    // N 1e5左右
+    for (int i = 1; i <= N; i ++) {
+        for (int j = 1; j <= i / j; j ++) {
+            if(i % j == 0) {
+                divisors[i].push_back(j);
+                if(j * j != i) { // j*j一定不会爆int, 因为时间复杂度为 nsqrt(n)
+                    divisors[i].push_back(i / j);
+                }
+            }
+        }
+    }
+}
+
 int main() {
     int n;  cin >> n;
     while(n --) {

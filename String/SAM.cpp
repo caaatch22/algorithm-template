@@ -1,3 +1,4 @@
+// https://ac.nowcoder.com/acm/contest/33188/H
 #include <bits/stdc++.h>
 
 using namespace std;
@@ -6,8 +7,7 @@ using i64 = long long;
 struct SuffixAutomaton {
     static constexpr int ALPHABET_SIZE = 26, N = 1e5;
     struct Node {
-        int len;
-        int link;
+        int len, link;
         int next[ALPHABET_SIZE];
         Node() : len(0), link(0), next{} {}
     } t[2 * N];

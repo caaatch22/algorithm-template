@@ -178,5 +178,26 @@ about string
     
 }
 
+// split of string 
+vector<string> split(const string &str, const char *delim) {
+  vector<string> tokens;
+  if (str.empty()) {
+    return tokens;
+  }
+  string token;
+  size_t curr = 0;
+  size_t next;
+  size_t delim_len = strlen(delim);
+  while ((next = str.find(delim, curr)) != string::npos) {
+    tokens.emplace_back(str.substr(curr, next - curr));
+    curr = next + delim_len;
+  }
+  if (curr != str.size()) {
+    // one last word
+    tokens.emplace_back(str.substr(curr, str.size() - curr));
+  }
+  return tokens;
+}
+
 int main() {
 }

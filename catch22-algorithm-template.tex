@@ -377,6 +377,9 @@ k\"{o}nig定理：二分图最小点覆盖包含的点数等于二分图最大�
 基环树的性质：点数等于边数；度数是点数两倍。一般题目中出现“从一个点到另一个点建一条边”，“N个点通过恰好N条双向道路连接起来，不存在任何两条道路连接了相同的两个点”等类似信息可以判定该图是基环树森林。以下是求基环树(森林)直径(和)代码
 \cppcode{graph/pseudotree-diameter.cpp}
 
+\subsection{树哈希}
+\cppcode{graph/treeHash.cpp}
+
 \subsection{dinic}
 \cppcode{graph/Dinic.cpp}
 
@@ -517,6 +520,9 @@ SAM的总转移数不超过  ，当字符串形如  时取到上界
 \subsection{矩阵快速幂}
 \cppcode{others/matrix-power.cpp}
 
+\subsection{MEX}
+\cppcode{others/mex.cpp}
+
 \subsection{GospersHack}
 生成$n$元集合所有$k$元子集的算法。这个算法复杂度与答案个数是同阶的，比暴力枚举$2^n$个数然后分别算$popcount$要好。
 \cppcode{others/GospersHack.cpp}
@@ -573,6 +579,8 @@ using tree = __gnu_pbds::tree<int, null_type, less<int>,
 	若a[i] > 0, $\sum_{i=1}^{n} a[i] = n$,则a中不同的数只有$\sqrt{n}$种
 	\item 排列的性质： $ max - min + 1 = len $
 	\item 合法括号的充分必要条件：任意前缀的左括号数大于等于右括号数字 (catalan数)
+	\item 多个点的LCA是其中dfs序最小和最大的两个点的LCA
+	\item $\sum_{i = 1}^{n}\sum_{j = i + 1}^{n}(A_i + A_j)(B_i + B_j) = \sum_{i = 1}^{n}A_i \dot \sum_{i = 1}^{n}B_i + \sum_{i = 1}^{n}(n - 2)A_i B_i$等式右侧利用前缀和可以在$\mathcal{O}(n)$时间内完成
 	
 \end{enumerate}
 

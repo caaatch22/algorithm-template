@@ -12,3 +12,5 @@ ll C(int n, int m) {  // 组合数C(n,m)
 }
 
 ll ans = C(2 * n, n) * qpow(n + 1, mod - 2) % mod;
+// or
+ll ans = 1LL * (C(2 * n, n) - C(2 * n, n - 1) + mod) % mod;

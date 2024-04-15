@@ -571,7 +571,7 @@ using tree = __gnu_pbds::tree<int, null_type, less<int>,
 	  \subitem 一个序列的异或和小于等于数值和 $a+b=a \oplus b+2(a \& b)$
 	  \subitem 一个序列的数值和和异或和奇偶性相同
 
-	\item 一般估计因子数是 $\mathcal{O}(\sqrt{n})$，但这个上界是比较松的。1e18内的数最多有103680个因子，1e9内有1344个因子。另外1e9内不同的质因子只有 $2 3 5 7 11 13 17 19 23$ 这9个，可以在上面使用二进制枚举。
+	\item 一般估计因子数是 $\mathcal{O}(\sqrt{n})$，但这个上界是比较松的。1e18内的数最多有103680个因子，1e9内有1344个因子。另外1e9内不同的质因子只有 $2\ 3\ 5\ 7\ 11\ 13\ 17\ 19\ 23$ 这9个，可以在上面使用二进制枚举。
 
 	\item 除法上取整： $(a + b - 1) / b$， 或者$ceil(a.0 / b.0)$
 	\item $\sum_{k=1}^{n-1}{k \cdot k!} = n! - 1$
@@ -582,7 +582,7 @@ using tree = __gnu_pbds::tree<int, null_type, less<int>,
 	\item 多个点的LCA是其中dfs序最小和最大的两个点的LCA
 	\item $\sum_{i = 1}^{n}\sum_{j = i + 1}^{n}(A_i + A_j)(B_i + B_j) = \sum_{i = 1}^{n}A_i \dot \sum_{i = 1}^{n}B_i + \sum_{i = 1}^{n}(n - 2)A_i B_i$等式右侧利用前缀和可以在$\mathcal{O}(n)$时间内完成
 	\item 树上 $\sum_{i=1}^{n-1}\sum_{j=i+1}^{n}f(i, j) $ (其中$f(i, j)$表示$i$点到$j$点的路径长度) 。 可以考虑每条边的贡献 为 $w[u] * siz[u] * (n - siz[u])$ 之和。
-	\item 一种线段覆盖问题：给定一些线段（带有长度），x轴上的每个点最多被两条线段所覆盖，那个这些线段最少能覆盖多长的x轴？\\
+	\item 给定m种类的物品，每种的个数分别为$sz_1, ... , sz_m$，不同种类之间可以两两匹配，则最多的匹配数为：$sz_{mx} \leq tot - sz_{mx} ? \lfloor \frac{tot}{2} \rfloor : tot - sz_{mx} $ \\ 同理，一种线段覆盖问题：给定一些线段（带有长度），x轴上的每个点最多被两条线段所覆盖，那个这些线段最少能覆盖多长的x轴？\\
 	最少覆盖长度为$\lceil \frac{sum}{2} \rceil $，或者如果有一条线段的和大于$\frac{sum}{2}$，则最少覆盖长度为这条线段的长度
 	\item 
 	\begin{minted}{C++}
